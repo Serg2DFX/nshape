@@ -370,12 +370,9 @@ namespace Dataweb.NShape {
 
 		/// <ToBeCompleted></ToBeCompleted>
 		protected string CalcConnectionString(string serverName, string databaseName) {
-#warning Hack: Build AppVeyor in folder 'c:\projects\myproject...'
-
-			throw new NotSupportedException(string.Format("AppDomain path: '{0}'.", AppDomain.CurrentDomain.BaseDirectory.ToLower(CultureInfo.InvariantCulture)));
-
-			if (AppDomain.CurrentDomain.BaseDirectory.ToLower(CultureInfo.InvariantCulture).StartsWith(@"c:\projects\myproject"))
+			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
 			{
+#warning Hack: Build AppVeyor in folder 'c:\projects\nshape...'
 				return @"Server=(local)\SQL2012SP1;Database=master;User ID=sa;Password=Password12!";
 			}
 			return string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", serverName, databaseName);
