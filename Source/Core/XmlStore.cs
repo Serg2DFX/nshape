@@ -922,21 +922,21 @@ namespace Dataweb.NShape {
 			/// <override></override>
 			protected override void DoWriteBool(bool value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
 			/// <override></override>
 			protected override void DoWriteByte(byte value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
 			/// <override></override>
 			protected override void DoWriteInt16(short value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
@@ -944,35 +944,35 @@ namespace Dataweb.NShape {
 			protected override void DoWriteInt32(int value) {
 				++PropertyIndex;
 				string fieldName = GetXmlAttributeName(PropertyIndex);
-				XmlAddAttributeString(fieldName, value.ToString());
+				XmlAddAttributeString(fieldName, value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
 			/// <override></override>
 			protected override void DoWriteInt64(long value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
 			/// <override></override>
 			protected override void DoWriteFloat(float value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
 			/// <override></override>
 			protected override void DoWriteDouble(double value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
 			/// <override></override>
 			protected override void DoWriteChar(char value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString());
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToString(CultureInfo.InvariantCulture));
 			}
 
 
@@ -986,7 +986,7 @@ namespace Dataweb.NShape {
 			/// <override></override>
 			protected override void DoWriteDate(DateTime value) {
 				++PropertyIndex;
-				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToUniversalTime().ToString(datetimeFormat));
+				XmlAddAttributeString(GetXmlAttributeName(PropertyIndex), value.ToUniversalTime().ToString(datetimeFormat, CultureInfo.InvariantCulture));
 			}
 
 
@@ -2109,7 +2109,7 @@ namespace Dataweb.NShape {
 		private void WriteProject(IStoreCache cache) {
 			xmlWriter.WriteStartDocument();
 			XmlOpenElement(rootTag);
-			xmlWriter.WriteAttributeString("version", version.ToString());
+			xmlWriter.WriteAttributeString("version", version.ToString(CultureInfo.InvariantCulture));
 			WriteProjectSettings(cache);
 			// Currently there is no other design than the project design
 			// WriteDesigns();

@@ -502,7 +502,8 @@ namespace Dataweb.NShape.Advanced {
 		public void Delete(IStyle style) {
 			if (style == null) throw new ArgumentNullException("style");
 			AssertOpen();
-			AssertCanDelete(SingleInstanceEnumerator<IStyle>.Create(style));
+#warning Hack: skip error.
+			AssertCanDelete(SingleInstanceEnumerator<IStyle>.Create(style), true);
 			DeleteEntity<IStyle>(loadedStyles, newStyles, style);
 			if (StyleDeleted != null) StyleDeleted(this, GetStyleEventArgs(style));
 		}
@@ -2821,8 +2822,8 @@ namespace Dataweb.NShape.Advanced {
 
 		[Conditional(REPOSITORY_CHECK_DEFINE)]
 		//[Conditional(DEBUG_DEFINE)]
-		private void AssertCanDelete(IEnumerable<IStyle> styles) {
-			if (!CanDelete(styles, out reasonText)) throw new CachedRepositoryException(reasonText);
+		private void AssertCanDelete(IEnumerable<IStyle> styles, bool skipValidateInUse = false){
+			if (!CanDelete(styles, out reasonText, skipValidateInUse)) throw new CachedRepositoryException(reasonText);
 		}
 
 
@@ -3128,10 +3129,10 @@ namespace Dataweb.NShape.Advanced {
 		}
 
 
-		private bool CanDelete(IEnumerable<IStyle> styles, out string reason) {
+		private bool CanDelete(IEnumerable<IStyle> styles, out string reason, bool skipValidateInUse = false) {
 			reason = null;
 			foreach (IStyle style in styles) {
-				if (IsStyleInUse(style, styles)) 
+				if (!skipValidateInUse && IsStyleInUse(style, styles)) 
 					reason = string.Format(ResourceStrings.MessageTxt_Type0IsStillInUse, ResourceStrings.Text_Style);
 				else if (!IsExistent(style, newStyles, loadedStyles)) 
 					reason = string.Format(ResourceStrings.MessageFmt_Entity01DoesNotExistInTheRepository, ResourceStrings.Text_Style, style.Title);
