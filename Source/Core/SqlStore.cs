@@ -369,7 +369,10 @@ namespace Dataweb.NShape {
 
 
 		/// <ToBeCompleted></ToBeCompleted>
-		public static string CalcConnectionString(string serverName, string databaseName) {
+		public static string CalcConnectionString(string serverName, string databaseName)
+		{
+			Debug.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
+
 			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
 			{
 #warning Hack: Build AppVeyor in folder 'c:\projects\nshape...'
