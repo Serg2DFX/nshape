@@ -2362,7 +2362,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override DateTime DoReadDate() {
-				return DateTime.Parse(DoReadStringValue());
+				return DateTime.Parse(DoReadStringValue(), CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal);
 			}
 
 

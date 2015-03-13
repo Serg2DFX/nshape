@@ -66,13 +66,13 @@ namespace NShapeTest {
 		// Use TestInitialize to run code before running each test 
 		[TestInitialize()]
 		public void MyTestInitialize() {
-			TestContext.BeginTimer(TestContext.TestName + " Timer");
+			TestContext.SaveBeginTimer(TestContext.TestName + " Timer");
 		}
 
 		// Use TestCleanup to run code after each test has run
 		[TestCleanup()]
 		public void MyTestCleanup() {
-			TestContext.EndTimer(TestContext.TestName + " Timer");
+			TestContext.SaveEndTimer(TestContext.TestName + " Timer");
 		}
 
 		#endregion

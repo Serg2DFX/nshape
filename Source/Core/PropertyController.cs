@@ -762,7 +762,7 @@ namespace Dataweb.NShape.Controllers {
 
 
 		/// <ToBeCompleted></ToBeCompleted>
-		public IReadOnlyCollection<object> Objects {
+		public Dataweb.NShape.Advanced.IReadOnlyCollection<object> Objects {
 			get { return objects; }
 		}
 

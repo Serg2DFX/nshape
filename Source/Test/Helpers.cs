@@ -328,6 +328,26 @@ namespace NShapeTest {
 		public const string DatabaseName = "NShapeSQLTest";
 	}
 
+	public static class TestHelper
+	{
+		public static void SaveBeginTimer(this TestContext context, string timerName)
+		{
+			try
+			{
+				context.BeginTimer(timerName);
+			}
+			catch (NotSupportedException) { }
+		}
+
+		public static void SaveEndTimer(this TestContext context, string timerName)
+		{
+			try
+			{
+				context.EndTimer(timerName);
+			}
+			catch (NotSupportedException) { }
+		}
+	}
 
 	// Enum helper class
 	public static class Enum<T> where T : struct, IComparable {

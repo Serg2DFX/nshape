@@ -18,9 +18,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
-
 using Dataweb.NShape.Advanced;
 using Dataweb.NShape.Controllers;
 
@@ -1182,7 +1182,8 @@ namespace Dataweb.NShape.WinFormsUI {
 		private void controlPointMappingGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
 			if (isInitialized && templateController.WorkTemplate.Shape != null) {
 				int pointId = ControlPointId.None;
-				if (int.TryParse(controlPointMappingGrid[0, e.RowIndex].Value.ToString(), out pointId)) {
+				if (int.TryParse(controlPointMappingGrid[0, e.RowIndex].Value.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out pointId))
+				{
 					// Get ControlPointId and TerminalId
 					TerminalId terminalId = TerminalId.Invalid;
 					string terminalName = (string)controlPointMappingGrid[1, e.RowIndex].Value;

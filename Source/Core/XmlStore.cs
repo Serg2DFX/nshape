@@ -17,12 +17,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Xml;
-
 using Dataweb.NShape.Advanced;
-using System.Drawing.Design;
 
 
 namespace Dataweb.NShape {
@@ -581,7 +581,7 @@ namespace Dataweb.NShape {
 				xmlReader.MoveToContent();
 				if (xmlReader.Name != rootTag || !xmlReader.HasAttributes)
 					throw new NShapeException("XML file '{0}' is not a valid NShape project file.", ProjectFilePath);
-				return int.Parse(xmlReader.GetAttribute(0));
+				return int.Parse(xmlReader.GetAttribute(0), System.Globalization.CultureInfo.InvariantCulture);
 			} finally {
 				if (!keepOpen) CloseReader();
 			}
@@ -725,7 +725,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override byte DoReadByte() {
-				byte result = byte.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset));
+				byte result = byte.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset), CultureInfo.InvariantCulture);
 				xmlReader.MoveToNextAttribute();
 				return result;
 			}
@@ -733,7 +733,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override short DoReadInt16() {
-				short result = short.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset));
+				short result = short.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset), CultureInfo.InvariantCulture);
 				xmlReader.MoveToNextAttribute();
 				return result;
 			}
@@ -741,7 +741,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override int DoReadInt32() {
-				int result = int.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset));
+				int result = int.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset), CultureInfo.InvariantCulture);
 				xmlReader.MoveToNextAttribute();
 				return result;
 			}
@@ -749,7 +749,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override long DoReadInt64() {
-				long result = long.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset));
+				long result = long.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset), CultureInfo.InvariantCulture);
 				xmlReader.MoveToNextAttribute();
 				return result;
 			}
@@ -757,7 +757,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override float DoReadFloat() {
-				float result = float.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset));
+				float result = float.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset), CultureInfo.InvariantCulture);
 				xmlReader.MoveToNextAttribute();
 				return result;
 			}
@@ -765,7 +765,7 @@ namespace Dataweb.NShape {
 
 			/// <override></override>
 			protected override double DoReadDouble() {
-				double result = double.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset));
+				double result = double.Parse(xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset), CultureInfo.InvariantCulture);
 				xmlReader.MoveToNextAttribute();
 				return result;
 			}
@@ -792,7 +792,7 @@ namespace Dataweb.NShape {
 				System.Globalization.DateTimeFormatInfo info = new System.Globalization.DateTimeFormatInfo();
 				string attrValue = xmlReader.GetAttribute(PropertyIndex + xmlAttributeOffset);
 				DateTime dateTime;
-				if (!DateTime.TryParseExact(attrValue, datetimeFormat, null, System.Globalization.DateTimeStyles.AssumeUniversal, out dateTime))
+				if (!DateTime.TryParseExact(attrValue, datetimeFormat, CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal, out dateTime))
 					dateTime = Convert.ToDateTime(attrValue);	// ToDo: This is for compatibility with older file versions - Remove later
 				xmlReader.MoveToNextAttribute();
 				return dateTime.ToLocalTime();
@@ -1459,7 +1459,7 @@ namespace Dataweb.NShape {
 				result = new Guid(idStr);
 			else {
 				long idValue;
-				if (long.TryParse(idStr, out idValue))
+				if (long.TryParse(idStr, NumberStyles.Integer, CultureInfo.InvariantCulture, out idValue))
 					result = idValue;
 			}
 			return result;

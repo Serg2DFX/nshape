@@ -17,12 +17,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-
 using Dataweb.NShape.Advanced;
 using Dataweb.NShape.Commands;
 using Dataweb.NShape.Controllers;
@@ -425,11 +425,11 @@ namespace Dataweb.NShape.Designer {
 			if (wndSettingsNode != null && wndSettingsNode.Attributes.Count > 0) {
 				try {
 					int val;
-					if (int.TryParse(wndSettingsNode.Attributes[AttrNamePositionX].Value, out val)) Left = val;
-					if (int.TryParse(wndSettingsNode.Attributes[AttrNamePositionY].Value, out val)) Top = val;
-					if (int.TryParse(wndSettingsNode.Attributes[AttrNameWidth].Value, out val)) Width = val;
-					if (int.TryParse(wndSettingsNode.Attributes[AttrNameHeight].Value, out val)) Height = val;
-					WindowState = (FormWindowState)int.Parse(wndSettingsNode.Attributes[AttrNameState].Value);
+					if (int.TryParse(wndSettingsNode.Attributes[AttrNamePositionX].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out val)) Left = val;
+					if (int.TryParse(wndSettingsNode.Attributes[AttrNamePositionY].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out val)) Top = val;
+					if (int.TryParse(wndSettingsNode.Attributes[AttrNameWidth].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out val)) Width = val;
+					if (int.TryParse(wndSettingsNode.Attributes[AttrNameHeight].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out val)) Height = val;
+					WindowState = (FormWindowState)int.Parse(wndSettingsNode.Attributes[AttrNameState].Value, NumberStyles.Integer, CultureInfo.InvariantCulture);
 				} catch (Exception exc) {
 					Debug.Fail(exc.Message);
 				}
@@ -1880,7 +1880,8 @@ namespace Dataweb.NShape.Designer {
 
 		private void zoomToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e) {
 			int zoom;
-			if (int.TryParse(zoomToolStripComboBox.Text.Replace('%', ' ').Trim(), out zoom)) {
+			if (int.TryParse(zoomToolStripComboBox.Text.Replace('%', ' ').Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out zoom))
+			{
 				if (Zoom != zoom) Zoom = zoom;
 			}
 		}
@@ -1897,7 +1898,7 @@ namespace Dataweb.NShape.Designer {
 			else txt = zoomToolStripComboBox.Text;
 			// Parse text and set zoom level
 			int zoom;
-			if (int.TryParse(txt.Trim(), out zoom))
+			if (int.TryParse(txt.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out zoom))
 				if (zoom > 0 && Zoom != zoom) Zoom = zoom;
 
 			if (zoomToolStripComboBox.Focused)

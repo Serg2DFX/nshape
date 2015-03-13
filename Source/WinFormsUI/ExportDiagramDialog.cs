@@ -24,6 +24,7 @@ using Dataweb.NShape.Advanced;
 using Dataweb.NShape.Controllers;
 using System.ComponentModel;
 using System.IO;
+using System.Globalization;
 
 namespace Dataweb.NShape.WinFormsUI {
 
@@ -411,7 +412,7 @@ namespace Dataweb.NShape.WinFormsUI {
 
 		private void dpiComboBox_TextChanged(object sender, EventArgs e) {
 			int value;
-			if (!int.TryParse(dpiComboBox.Text, out value)) {
+			if (!int.TryParse(dpiComboBox.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out value)) {
 				if (!string.IsNullOrEmpty(dpiComboBox.Text))
 					dpiComboBox.Text = string.Empty;
 				value = -1;

@@ -823,7 +823,7 @@ namespace Dataweb.NShape.Controllers {
 
 		#region [Internal] Properties
 
-		internal IReadOnlyCollection<DiagramController> DiagramControllers {
+		internal Dataweb.NShape.Advanced.IReadOnlyCollection<DiagramController> DiagramControllers {
 			get { return diagramControllers; }
 		}
 
@@ -1778,7 +1778,7 @@ namespace Dataweb.NShape.Controllers {
 		}
 
 		/// <ToBeCompleted></ToBeCompleted>
-		public IReadOnlyCollection<Shape> Shapes {
+		public Dataweb.NShape.Advanced.IReadOnlyCollection<Shape> Shapes {
 			get { return shapes; }
 		}
 
@@ -1835,7 +1835,7 @@ namespace Dataweb.NShape.Controllers {
 		}
 
 		/// <ToBeCompleted></ToBeCompleted>
-		public IReadOnlyCollection<IModelObject> ModelObjects {
+		public Dataweb.NShape.Advanced.IReadOnlyCollection<IModelObject> ModelObjects {
 			get { return modelObjects; }
 		}
 

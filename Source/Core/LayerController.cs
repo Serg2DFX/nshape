@@ -215,7 +215,7 @@ namespace Dataweb.NShape.Controllers {
 		/// <summary>
 		/// Returns a collection of <see cref="T:Dataweb.NShape.Advanced.MenuItemDef" /> for constructing context menus etc.
 		/// </summary>
-		public IEnumerable<MenuItemDef> GetMenuItemDefs(Diagram diagram, IReadOnlyCollection<Layer> selectedLayers) {
+		public IEnumerable<MenuItemDef> GetMenuItemDefs(Diagram diagram, Dataweb.NShape.Advanced.IReadOnlyCollection<Layer> selectedLayers) {
 			if (diagram == null) throw new ArgumentNullException("diagram");
 			if (selectedLayers == null) throw new ArgumentNullException("selectedLayers");
 			bool isFeasible;
@@ -441,7 +441,7 @@ namespace Dataweb.NShape.Controllers {
 
 
 		/// <ToBeCompleted></ToBeCompleted>
-		public IReadOnlyCollection<Layer> Layers { get { return layers; } }
+		public Dataweb.NShape.Advanced.IReadOnlyCollection<Layer> Layers { get { return layers; } }
 
 
 		/// <ToBeCompleted></ToBeCompleted>

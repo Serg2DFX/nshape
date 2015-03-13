@@ -16,8 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
-
 using Dataweb.NShape.Advanced;
 using Dataweb.NShape.Controllers;
 
@@ -115,7 +115,7 @@ namespace Dataweb.NShape.WinFormsUI {
 		private void ctrlPointListView_SelectedIndexChanged(object sender, EventArgs e) {
 			int selectedPtId = ControlPointId.None;
 			if (ctrlPointListView.SelectedItems.Count > 0)
-				int.TryParse(ctrlPointListView.SelectedItems[0].SubItems[0].Text, out selectedPtId);
+				int.TryParse(ctrlPointListView.SelectedItems[0].SubItems[0].Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out selectedPtId);
 			tool.SelectedPointId = selectedPtId;
 			display.Invalidate();
 		}

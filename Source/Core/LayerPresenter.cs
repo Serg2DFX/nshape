@@ -129,7 +129,7 @@ namespace Dataweb.NShape.Controllers {
 
 		/// <ToBeCompleted></ToBeCompleted>
 		[Browsable(false)]
-		public IReadOnlyCollection<Layer> SelectedLayers {
+		public Dataweb.NShape.Advanced.IReadOnlyCollection<Layer> SelectedLayers {
 			get { return selectedLayers; }
 		}
 

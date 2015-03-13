@@ -46,7 +46,7 @@ namespace Dataweb.NShape.WinFormsUI {
 				return true;
 			if (destinationType == typeof(IList<string>))
 				return true;
-			if (destinationType == typeof(IReadOnlyCollection<string>))
+			if (destinationType == typeof(Dataweb.NShape.Advanced.IReadOnlyCollection<string>))
 				return true;
 			if (destinationType == typeof(ICollection<string>))
 				return true;
@@ -90,7 +90,7 @@ namespace Dataweb.NShape.WinFormsUI {
 				return true;
 			if (sourceType == typeof(IList<string>))
 				return true;
-			if (sourceType == typeof(IReadOnlyCollection<string>))
+			if (sourceType == typeof(Dataweb.NShape.Advanced.IReadOnlyCollection<string>))
 				return true;
 			if (sourceType == typeof(ICollection<string>))
 				return true;

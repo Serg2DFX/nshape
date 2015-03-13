@@ -62,13 +62,13 @@ namespace NShapeTest {
 		// Use TestInitialize to run code before running each test 
 		[TestInitialize()]
 		public void MyTestInitialize() {
-			TestContext.BeginTimer(TestContext.TestName + " Timer");
+			TestContext.SaveBeginTimer(TestContext.TestName + " Timer");
 		}
 
 		// Use TestCleanup to run code after each test has run
 		[TestCleanup()]
 		public void MyTestCleanup() {
-			TestContext.EndTimer(TestContext.TestName + " Timer");
+			TestContext.SaveEndTimer(TestContext.TestName + " Timer");
 		}
 
 		#endregion
@@ -174,9 +174,9 @@ namespace NShapeTest {
 			for (int version = Project.FirstSupportedSaveVersion; version <= Project.LastSupportedSaveVersion; ++version) {
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "XML Repository Version Compatibility Test Timer";
-				TestContext.BeginTimer(timerName);
+				TestContext.SaveBeginTimer(timerName);
 				RepositoryCompatibilityTestCore(RepositoryHelper.CreateXmlStore(), version);
-				TestContext.EndTimer(timerName);
+				TestContext.SaveEndTimer(timerName);
 			}
 		}
 
@@ -192,9 +192,9 @@ namespace NShapeTest {
 
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "SQL Repository Version Compatibility Test Timer";
-				TestContext.BeginTimer(timerName);
+				TestContext.SaveBeginTimer(timerName);
 				RepositoryCompatibilityTestCore(RepositoryHelper.CreateSqlStore(databaseName), version);
-				TestContext.EndTimer(timerName);
+				TestContext.SaveEndTimer(timerName);
 			}
 
 			// Clean up the created databases
@@ -206,9 +206,9 @@ namespace NShapeTest {
 		public void XMLRepository_EditWithContents_Test() {
 			// Test inserting, modifying and deleting objects from repository
 			string timerName = "RepositoryTest XMLStore Timer (edit with contents)";
-			TestContext.BeginTimer(timerName);
+			TestContext.SaveBeginTimer(timerName);
 			RepositoryEditTestCore(RepositoryHelper.CreateXmlStore(), RepositoryHelper.CreateXmlStore(), true);
-			TestContext.EndTimer(timerName);
+			TestContext.SaveEndTimer(timerName);
 		}
 
 
@@ -216,9 +216,9 @@ namespace NShapeTest {
 		public void XMLRepository_EditWithoutContents_Test() {
 			// Test inserting, modifying and deleting objects from repository
 			string timerName = "RepositoryTest XMLStore Timer (edit without contents)";
-			TestContext.BeginTimer(timerName);
+			TestContext.SaveBeginTimer(timerName);
 			RepositoryEditTestCore(RepositoryHelper.CreateXmlStore(), RepositoryHelper.CreateXmlStore(), false);
-			TestContext.EndTimer(timerName);
+			TestContext.SaveEndTimer(timerName);
 		}
 
 
@@ -226,9 +226,9 @@ namespace NShapeTest {
 		public void XMLRepository_FunctionSetComparison_Test() {
 			// Test inserting, modifying and deleting objects from repository
 			string timerName = "RepositoryTest XMLStore Timer (Function set comparison test)";
-			TestContext.BeginTimer(timerName);
+			TestContext.SaveBeginTimer(timerName);
 			RepositoryFunctionSetTestCore(RepositoryHelper.CreateXmlStore(), RepositoryHelper.CreateXmlStore());
-			TestContext.EndTimer(timerName);
+			TestContext.SaveEndTimer(timerName);
 		}
 
 
@@ -236,9 +236,9 @@ namespace NShapeTest {
 		public void XMLRepository_LargeDiagram_Test() {
 			// Test inserting large diagrams
 			string timerName = "LargeDiagramTest XMLStore Timer";
-			TestContext.BeginTimer(timerName);
+			TestContext.SaveBeginTimer(timerName);
 			LargeDiagramCore(RepositoryHelper.CreateXmlStore());
-			TestContext.EndTimer(timerName);
+			TestContext.SaveEndTimer(timerName);
 		}
 
 
@@ -248,9 +248,9 @@ namespace NShapeTest {
 				RepositoryHelper.SQLCreateDatabase();
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "RepositoryTest SqlStore Timer (edit with contents)";
-				TestContext.BeginTimer(timerName);
+				TestContext.SaveBeginTimer(timerName);
 				RepositoryEditTestCore(RepositoryHelper.CreateSqlStore(), RepositoryHelper.CreateSqlStore(), true);
-				TestContext.EndTimer(timerName);
+				TestContext.SaveEndTimer(timerName);
 			} finally {
 				RepositoryHelper.SQLDropDatabase();
 			}
@@ -263,9 +263,9 @@ namespace NShapeTest {
 				RepositoryHelper.SQLCreateDatabase();
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "RepositoryTest SqlStore Timer (edit without contents)";
-				TestContext.BeginTimer(timerName);
+				TestContext.SaveBeginTimer(timerName);
 				RepositoryEditTestCore(RepositoryHelper.CreateSqlStore(), RepositoryHelper.CreateSqlStore(), false);
-				TestContext.EndTimer(timerName);
+				TestContext.SaveEndTimer(timerName);
 			} finally {
 				RepositoryHelper.SQLDropDatabase();
 			}
@@ -278,9 +278,9 @@ namespace NShapeTest {
 				RepositoryHelper.SQLCreateDatabase();
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "RepositoryTest SqlStore Timer (Function set comparison test)";
-				TestContext.BeginTimer(timerName);
+				TestContext.SaveBeginTimer(timerName);
 				RepositoryFunctionSetTestCore(RepositoryHelper.CreateSqlStore(), RepositoryHelper.CreateSqlStore());
-				TestContext.EndTimer(timerName);
+				TestContext.SaveEndTimer(timerName);
 			} finally {
 				RepositoryHelper.SQLDropDatabase();
 			}
@@ -293,9 +293,9 @@ namespace NShapeTest {
 				RepositoryHelper.SQLCreateDatabase();
 				// Test inserting large diagrams
 				string timerName = "LargeDiagramTest SqlStore Timer";
-				TestContext.BeginTimer(timerName);
+				TestContext.SaveBeginTimer(timerName);
 				LargeDiagramCore(RepositoryHelper.CreateSqlStore());
-				TestContext.EndTimer(timerName);
+				TestContext.SaveEndTimer(timerName);
 			} finally {
 				RepositoryHelper.SQLDropDatabase();
 			}
@@ -638,7 +638,7 @@ namespace NShapeTest {
 
 		
 		private string GetCommonTempDir() {
-			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Temp");
+			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "NShapeTemp");
 		}
 
 		#endregion
