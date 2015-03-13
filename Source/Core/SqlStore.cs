@@ -372,19 +372,25 @@ namespace Dataweb.NShape {
 		public static string CalcConnectionString(string serverName, string databaseName)
 		{
 			Debug.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
+			string connectionString;
 
 			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
 			{
 #warning Hack: Build AppVeyor in folder 'c:\projects\nshape...'
-				return @"Server=(local)\SQL2012SP1;Database=master;User ID=sa;Password=Password12!";
+				connectionString = @"Server=(local)\SQL2012SP1;Database=master;User ID=sa;Password=Password12!";
 			}
-
-			if (databaseName == "master")
+			else if (databaseName == "master")
 			{
-				return string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", serverName, databaseName);
+				connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", serverName, databaseName);
+			}
+			else
+			{
+				connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", serverName, databaseName);
 			}
 
-			return string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", serverName, databaseName);
+			Debug.WriteLine(connectionString);
+
+			return connectionString;
 		}
 
 
