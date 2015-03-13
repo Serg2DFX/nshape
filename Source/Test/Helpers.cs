@@ -247,7 +247,7 @@ namespace NShapeTest {
 		public static void SQLCreateDatabase(string databaseName, int version, IEnumerable<string> libraryNames) {
 			using (SqlStore sqlStore = CreateSqlStore(databaseName)) {
 				// Create database
-				string connectionString = string.Format("server={0};Integrated Security=True", sqlStore.ServerName);
+				string connectionString = SqlStore.CalcConnectionString(sqlStore.ServerName, "master");
 				using (SqlConnection conn = new SqlConnection(connectionString)) {
 					conn.Open();
 					try {
@@ -296,7 +296,7 @@ namespace NShapeTest {
 		public static void SQLDropDatabase(string databaseName) {
 			string connectionString = string.Empty;
 			using (SqlStore sqlStore = CreateSqlStore(databaseName)) {
-				connectionString = string.Format("server={0};Integrated Security=True", sqlStore.ServerName);
+				connectionString = SqlStore.CalcConnectionString(sqlStore.ServerName, "master");
 				try {
 					sqlStore.DropDbSchema();
 				} finally {
