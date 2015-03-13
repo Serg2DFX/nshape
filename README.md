@@ -1,6 +1,7 @@
 # nshape
 Automatically exported from code.google.com/p/nshape
 
+[![Build status](https://ci.appveyor.com/api/projects/status/iaqmv58xbc7x80nu?svg=true)](https://ci.appveyor.com/project/Serg2DFX/nshape)
 
 
 We have finally installed the NShape mailing list and the NShape feedback form. Please subscribe to the newsletter and tell us what you think of NShape.
