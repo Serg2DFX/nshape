@@ -374,6 +374,8 @@ namespace Dataweb.NShape {
 			Debug.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
 			string connectionString;
 
+			Debug.WriteLine(Environment.GetEnvironmentVariable("APPVEYOR"));
+
 			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
 			{
 #warning Hack: Build AppVeyor in folder 'c:\projects\nshape...'
