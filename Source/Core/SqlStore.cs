@@ -369,7 +369,7 @@ namespace Dataweb.NShape {
 
 
 		/// <ToBeCompleted></ToBeCompleted>
-		public static string CalcConnectionString(string serverName, string databaseName)
+		public static string CalcConnectionString(string serverName, string databaseName = "master")
 		{
 			Trace.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
 			string connectionString;

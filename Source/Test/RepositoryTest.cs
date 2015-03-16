@@ -572,7 +572,7 @@ namespace NShapeTest {
 
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
-					string connectionString = string.Format("server={0};Integrated Security=True", serverName);
+					string connectionString = SqlStore.CalcConnectionString(serverName);
 					using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString)) {
 						conn.Open();
 						using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
