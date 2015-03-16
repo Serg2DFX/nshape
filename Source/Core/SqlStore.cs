@@ -374,7 +374,7 @@ namespace Dataweb.NShape {
 			Debug.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
 			string connectionString;
 
-			Debug.WriteLine(Environment.GetEnvironmentVariable("APPVEYOR"));
+			Debug.WriteLine(string.Format("IsAppVeyor : '{0}'.", Environment.GetEnvironmentVariable("APPVEYOR", EnvironmentVariableTarget.Machine)));
 
 			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
 			{
