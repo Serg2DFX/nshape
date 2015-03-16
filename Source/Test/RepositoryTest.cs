@@ -631,7 +631,7 @@ namespace NShapeTest {
 			var path = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDir));
 			if (SqlStore.IsAppVeyor())
 			{
-				Path.Combine(path, "source");
+				path = Path.Combine(path, "source");
 			}
 			return path;
 		}

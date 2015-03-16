@@ -670,6 +670,12 @@ namespace Dataweb.NShape.SoftwareArchitectureShapes {
 			yield return new CommandMenuItemDef(Properties.Resources.CaptionTxt__AppendColumn, null, string.Empty, true,
 				new AddColumnCommand(this, newColumnTxt));
 
+			/*if (captionIdx == columnCaptions.Count)
+				captionIdx--;
+
+			if (captionIdx < 0)
+				captionIdx = 0;*/
+
 			bool isFeasible = captionIdx >= 0;
 			string description = Properties.Resources.MessageTxt_NoCaptionClicked;
 			if (isFeasible)
