@@ -565,10 +565,16 @@ namespace NShapeTest {
 					//string workDir = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetFileName(srcDirPath));
 					string workDir = Path.Combine(commonTempDir, Path.GetFileName(srcDirPath));
 					string workFilePath = Path.Combine(workDir, Path.GetFileName(srcFilePath));
+					string srcLogFilePath = Path.Combine(Path.GetDirectoryName(srcFilePath),
+												string.Format("{0}_log.ldf", Path.GetFileNameWithoutExtension(srcFilePath)));
+					string logFilePath = Path.Combine(Path.GetDirectoryName(workFilePath),
+												string.Format("{0}_log.ldf", Path.GetFileNameWithoutExtension(workFilePath)));
+
 					string databaseName = Path.GetFileNameWithoutExtension(srcFilePath);
 					if (!Directory.Exists(workDir))
 						Directory.CreateDirectory(workDir);
 					File.Copy(srcFilePath, workFilePath);
+					File.Copy(srcLogFilePath, logFilePath);
 
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
@@ -576,7 +582,9 @@ namespace NShapeTest {
 					using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString)) {
 						conn.Open();
 						using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
-							cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) FOR ATTACH_REBUILD_LOG", databaseName, workFilePath);
+							cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) LOG ON ( FILENAME = N'{2}' ) FOR ATTACH",
+							//cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) FOR ATTACH",
+														databaseName, workFilePath, logFilePath);
 							cmd.ExecuteNonQuery();
 						}
 					}
