@@ -576,7 +576,7 @@ namespace NShapeTest {
 					using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString)) {
 						conn.Open();
 						using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
-							cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) FOR ATTACH", databaseName, workFilePath);
+							cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) FOR ATTACH_REBUILD_LOG", databaseName, workFilePath);
 							cmd.ExecuteNonQuery();
 						}
 					}
@@ -606,7 +606,7 @@ namespace NShapeTest {
 					} catch (Exception) {
 						try {
 							string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
-							string connectionString = string.Format("server={0};Integrated Security=True", serverName);
+							string connectionString = SqlStore.CalcConnectionString(serverName);
 							using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString)) {
 								conn.Open();
 								using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
