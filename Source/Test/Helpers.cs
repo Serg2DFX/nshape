@@ -224,9 +224,9 @@ namespace NShapeTest {
 		}
 
 
-		public static SqlStore CreateSqlStore(string databaseName) {
+		public static SqlStore CreateSqlStore(string databaseName, bool standart = true) {
 			string server = Environment.MachineName + SqlServerName;
-			return new SqlStore(server, databaseName);
+			return new SqlStore(server, databaseName, standart);
 		}
 
 

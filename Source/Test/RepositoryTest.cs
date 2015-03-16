@@ -193,7 +193,7 @@ namespace NShapeTest {
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "SQL Repository Version Compatibility Test Timer";
 				TestContext.SaveBeginTimer(timerName);
-				RepositoryCompatibilityTestCore(RepositoryHelper.CreateSqlStore(databaseName), version);
+				RepositoryCompatibilityTestCore(RepositoryHelper.CreateSqlStore(databaseName, false), version);
 				TestContext.SaveEndTimer(timerName);
 			}
 
