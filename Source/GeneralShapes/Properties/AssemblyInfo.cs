@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an library.
 [assembly: AssemblyTitle("NShapes General Shapes")]
-[assembly: AssemblyDescription("NShape Basic Shapes for .NET 2.0")]
+[assembly: AssemblyDescription("NShape Basic Shapes for .NET 4.5")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("NShape General Shapes Library")]
 [assembly: AssemblyTrademark("")]

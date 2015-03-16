@@ -377,20 +377,32 @@ namespace Dataweb.NShape {
 			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
 			{
 #warning Hack: Build AppVeyor in folder 'c:\projects\nshape...'
-				connectionString = @"Server=(local)\SQL2012SP1;Database=master;User ID=sa;Password=Password12!";
-			}
-			else if (databaseName == "master")
-			{
-				connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", serverName, databaseName);
+				connectionString = GetAppVeyourConnectionString(serverName, databaseName);
 			}
 			else
 			{
-				connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", serverName, databaseName);
+				connectionString = GetStandartConnectionString(serverName, databaseName);
 			}
-
 			Debug.WriteLine(connectionString);
-
 			return connectionString;
+		}
+
+		private static string GetStandartConnectionString(string serverName, string databaseName)
+		{
+			if (databaseName == "master")
+			{
+				return string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", serverName, databaseName);
+			}
+			return string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", serverName, databaseName);
+		}
+
+		private static string GetAppVeyourConnectionString(string serverName, string databaseName)
+		{
+			if (databaseName == "master")
+			{
+				return "Data Source=(local)\\SQL2012SP1;Database=master;User ID=sa;Password=Password12!";
+			}
+			return string.Format("Server=(local)\\SQL2012SP1;Database={0};User ID=sa;Password=Password12!;MultipleActiveResultSets=True;Pooling=True", databaseName);
 		}
 
 

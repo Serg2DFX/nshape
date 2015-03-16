@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NShapes Software Architecture Shapes")]
-[assembly: AssemblyDescription("NShape Software Architecture Shapes for .NET 2.0")]
+[assembly: AssemblyDescription("NShape Software Architecture Shapes for .NET 4.5")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("NShapes Software Architecture Shapes Library")]
 [assembly: AssemblyTrademark("")]

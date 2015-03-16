@@ -19,9 +19,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an library.
 [assembly: AssemblyTitle("NShape WinForms UI Components")]
-[assembly: AssemblyDescription("NShape UI Components for .NET 2.0")]
+[assembly: AssemblyDescription("NShape UI Components for .NET 4.5")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("NShape UI Components for .NET 2.0")]
+[assembly: AssemblyProduct("NShape UI Components for .NET 4.5")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this library not visible 
