@@ -575,6 +575,8 @@ namespace NShapeTest {
 						Directory.CreateDirectory(workDir);
 					File.Copy(srcFilePath, workFilePath);
 					File.Copy(srcLogFilePath, logFilePath);
+					ExecuteBatCommand("attrib", string.Format("-R -S {0}", workFilePath));
+					ExecuteBatCommand("attrib", string.Format("-R -S {0}", logFilePath));
 
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
@@ -592,6 +594,13 @@ namespace NShapeTest {
 			}
 		}
 
+		private void ExecuteBatCommand(string cmd, string @params)
+		{
+			ProcessStartInfo startInfo = new ProcessStartInfo(cmd, @params);
+			startInfo.CreateNoWindow = false;
+			startInfo.UseShellExecute = false;
+			Process.Start(startInfo);
+		}
 
 		private void RepositoryCompatibilityTest_CleanupDatabases() {
 			string repositoriesDir = GetTestRepositoriesDirectory();
