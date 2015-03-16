@@ -628,6 +628,10 @@ namespace NShapeTest {
 
 
 		private string GetSourceDirectory() {
+			if (SqlStore.IsAppVeyor())
+			{
+				return Path.GetDirectoryName(TestContext.TestDir);
+			}
 			return Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDir));
 		}
 

@@ -371,22 +371,28 @@ namespace Dataweb.NShape {
 		/// <ToBeCompleted></ToBeCompleted>
 		public static string CalcConnectionString(string serverName, string databaseName)
 		{
-			Debug.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
+			Trace.WriteLine(string.Format("AppDomain: '{0}'.", AppDomain.CurrentDomain.BaseDirectory));
 			string connectionString;
 
-			Debug.WriteLine(string.Format("IsAppVeyor : '{0}'.", Environment.GetEnvironmentVariable("APPVEYOR", EnvironmentVariableTarget.Machine)));
-
-			if (AppDomain.CurrentDomain.BaseDirectory.StartsWith(@"c:\projects\nshape", StringComparison.InvariantCultureIgnoreCase))
+			if (IsAppVeyor())
 			{
-#warning Hack: Build AppVeyor in folder 'c:\projects\nshape...'
 				connectionString = GetAppVeyourConnectionString(serverName, databaseName);
 			}
 			else
 			{
 				connectionString = GetStandartConnectionString(serverName, databaseName);
 			}
-			Debug.WriteLine(connectionString);
+			Trace.WriteLine(connectionString);
 			return connectionString;
+		}
+
+		public static bool IsAppVeyor()
+		{
+			string value = Environment.GetEnvironmentVariable("APPVEYOR", EnvironmentVariableTarget.Process);
+			Trace.WriteLine(string.Format("IsAppVeyor : '{0}'.", value));
+			if (string.Compare(value, "true", true) == 0)
+				return true;
+			return false;
 		}
 
 		private static string GetStandartConnectionString(string serverName, string databaseName)
