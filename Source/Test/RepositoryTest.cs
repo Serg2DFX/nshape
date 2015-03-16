@@ -643,6 +643,10 @@ namespace NShapeTest {
 
 		
 		private string GetCommonTempDir() {
+			if (SqlStore.IsAppVeyor())
+			{
+				return Path.Combine(TestContext.TestDir, "NShapeTemp");
+			}
 			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "NShapeTemp");
 		}
 
