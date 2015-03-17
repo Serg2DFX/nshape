@@ -17,10 +17,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System.Linq;
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
 namespace NShapeTest {
@@ -609,9 +609,16 @@ namespace NShapeTest {
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo(cmd, @params);
 			startInfo.CreateNoWindow = false;
-			startInfo.UseShellExecute = true;
+			startInfo.UseShellExecute = false;
+			startInfo.RedirectStandardError = true;
+			startInfo.RedirectStandardOutput = true;
+
 			var p = Process.Start(startInfo);
-			//Trace.WriteLine(string.Format("Exit Code: '{0}'.", p.ExitCode));
+			p.WaitForExit(500);
+			Trace.WriteLine(string.Format("Standart output : '{0}'.", p.StandardOutput.ReadToEnd()));
+			Trace.WriteLine(string.Format("Standart error :'{0}'.", p.StandardError.ReadToEnd()));
+
+			Trace.WriteLine(string.Format("Exit Code: '{0}'.", p.ExitCode));
 		}
 
 		private void RepositoryCompatibilityTest_CleanupDatabases() {
