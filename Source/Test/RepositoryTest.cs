@@ -593,7 +593,7 @@ namespace NShapeTest {
 							cmd.ExecuteNonQuery();
 						}
 
-						/**/if (SqlStore.IsAppVeyor())
+						/*if (SqlStore.IsAppVeyor())
 						{
 							using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
 								cmd.CommandText = string.Format("USE [master]; ALTER DATABASE [{0}] SET READ_WRITE WITH NO_WAIT", databaseName);
