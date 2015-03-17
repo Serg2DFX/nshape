@@ -575,8 +575,8 @@ namespace NShapeTest {
 						Directory.CreateDirectory(workDir);
 					File.Copy(srcFilePath, workFilePath);
 					File.Copy(srcLogFilePath, logFilePath);
-					ExecuteBatCommand("attrib", string.Format("-R -S {0}", workFilePath));
-					ExecuteBatCommand("attrib", string.Format("-R -S {0}", logFilePath));
+					ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", workFilePath));
+					ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", logFilePath));
 
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
