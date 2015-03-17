@@ -578,6 +578,9 @@ namespace NShapeTest {
 					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", workFilePath));
 					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", logFilePath));
 
+					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-5-20:(OI)(CI)(F)", workFilePath));
+					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-5-20:(OI)(CI)(F)", logFilePath));
+
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
 					string connectionString = SqlStore.CalcConnectionString(serverName);
@@ -607,8 +610,9 @@ namespace NShapeTest {
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo(cmd, @params);
 			startInfo.CreateNoWindow = false;
-			startInfo.UseShellExecute = false;
-			Process.Start(startInfo);
+			startInfo.UseShellExecute = true;
+			var p = Process.Start(startInfo);
+			//Trace.WriteLine(string.Format("Exit Code: '{0}'.", p.ExitCode));
 		}
 
 		private void RepositoryCompatibilityTest_CleanupDatabases() {
