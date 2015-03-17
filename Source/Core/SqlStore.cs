@@ -50,14 +50,14 @@ namespace Dataweb.NShape {
 		/// <summary>
 		/// Initializes a new instance of <see cref="T:Dataweb.NShape.SqlStore" />.
 		/// </summary>
-		public SqlStore(string serverName, string databaseName, bool standart = true)
+		public SqlStore(string serverName, string databaseName)
 			: base() {
 			if (serverName == null) throw new ArgumentNullException("serverName");
 			if (databaseName == null) throw new ArgumentNullException("databaseName");
 			this.ProviderName = "System.Data.SqlClient";
 			this.serverName = serverName;
 			this.databaseName = databaseName;
-			ConnectionString = CalcConnectionString(serverName, databaseName, standart);
+			ConnectionString = CalcConnectionString(serverName, databaseName);
 		}
 
 
@@ -376,14 +376,14 @@ namespace Dataweb.NShape {
 
 			if (IsAppVeyor())
 			{
-				if (!standart)
-				{
-					if (databaseName == "master")
-					{
-						return "Data Source=(local)\\SQL2012SP1;Database=master;Integrated Security=True";
-					}
-					return string.Format("Server=(local)\\SQL2012SP1;Database={0};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", databaseName);
-				}
+				//if (!standart)
+				//{
+				//	if (databaseName == "master")
+				//	{
+				//		return "Data Source=(local)\\SQL2012SP1;Database=master;Integrated Security=True";
+				//	}
+				//	return string.Format("Server=(local)\\SQL2012SP1;Database={0};Integrated Security=True;MultipleActiveResultSets=True;Pooling=True", databaseName);
+				//}
 				connectionString = GetAppVeyourConnectionString(serverName, databaseName);
 			}
 			else

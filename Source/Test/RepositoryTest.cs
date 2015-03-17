@@ -193,7 +193,7 @@ namespace NShapeTest {
 				// Test inserting, modifying and deleting objects from repository
 				string timerName = "SQL Repository Version Compatibility Test Timer";
 				TestContext.SaveBeginTimer(timerName);
-				RepositoryCompatibilityTestCore(RepositoryHelper.CreateSqlStore(databaseName, false), version);
+				RepositoryCompatibilityTestCore(RepositoryHelper.CreateSqlStore(databaseName), version);
 				TestContext.SaveEndTimer(timerName);
 			}
 
@@ -575,8 +575,8 @@ namespace NShapeTest {
 						Directory.CreateDirectory(workDir);
 					File.Copy(srcFilePath, workFilePath);
 					File.Copy(srcLogFilePath, logFilePath);
-					ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", workFilePath));
-					ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", logFilePath));
+					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", workFilePath));
+					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", logFilePath));
 
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
@@ -589,6 +589,15 @@ namespace NShapeTest {
 														databaseName, workFilePath, logFilePath);
 							cmd.ExecuteNonQuery();
 						}
+
+						if (SqlStore.IsAppVeyor())
+						{
+							using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
+								cmd.CommandText = string.Format("USE [master]; ALTER DATABASE [{0}] SET READ_WRITE WITH NO_WAIT", databaseName);
+								cmd.ExecuteNonQuery();
+							}
+						}
+
 					}
 				}
 			}
