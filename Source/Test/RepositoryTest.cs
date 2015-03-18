@@ -575,8 +575,6 @@ namespace NShapeTest {
 						Directory.CreateDirectory(workDir);
 					File.Copy(srcFilePath, workFilePath);
 					File.Copy(srcLogFilePath, logFilePath);
-					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", workFilePath));
-					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", logFilePath));
 
 					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-1-0:(F)", workFilePath));
 					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-1-0:(F)", logFilePath));
@@ -588,18 +586,9 @@ namespace NShapeTest {
 						conn.Open();
 						using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
 							cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) LOG ON ( FILENAME = N'{2}' ) FOR ATTACH",
-							//cmd.CommandText = string.Format("CREATE DATABASE [{0}] ON ( FILENAME = N'{1}' ) FOR ATTACH",
 														databaseName, workFilePath, logFilePath);
 							cmd.ExecuteNonQuery();
 						}
-
-						/*if (SqlStore.IsAppVeyor())
-						{
-							using (System.Data.SqlClient.SqlCommand cmd = conn.CreateCommand()) {
-								cmd.CommandText = string.Format("USE [master]; ALTER DATABASE [{0}] SET READ_WRITE WITH NO_WAIT", databaseName);
-								cmd.ExecuteNonQuery();
-							}
-						}/**/
 					}
 				}
 			}
