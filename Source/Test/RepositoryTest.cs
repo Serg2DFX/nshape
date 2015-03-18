@@ -578,8 +578,8 @@ namespace NShapeTest {
 					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", workFilePath));
 					//ExecuteBatCommand("attrib", string.Format("-R -S \"{0}\"", logFilePath));
 
-					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-5-20:(F)", workFilePath));
-					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-5-20:(F)", logFilePath));
+					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-1-0:(F)", workFilePath));
+					ExecuteBatCommand("icacls", string.Format("\"{0}\" /grant *S-1-1-0:(F)", logFilePath));
 
 					// Attach SQL server database file to SQL server
 					string serverName = Environment.MachineName + RepositoryHelper.SqlServerName;
