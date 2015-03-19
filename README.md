@@ -1,7 +1,9 @@
 # nshape
 Automatically exported from code.google.com/p/nshape
 
-[![Build status](https://ci.appveyor.com/api/projects/status/iaqmv58xbc7x80nu?svg=true)](https://ci.appveyor.com/project/Serg2DFX/nshape)
+AppVeyor: [![Build status](https://ci.appveyor.com/api/projects/status/iaqmv58xbc7x80nu?svg=true)](https://ci.appveyor.com/project/Serg2DFX/nshape)
+
+Jenkins: [![Build Status](https://buildhive.cloudbees.com/job/Serg2DFX/job/nshape/badge/icon)](https://buildhive.cloudbees.com/job/Serg2DFX/job/nshape/)
 
 
 We have finally installed the NShape mailing list and the NShape feedback form. Please subscribe to the newsletter and tell us what you think of NShape.
