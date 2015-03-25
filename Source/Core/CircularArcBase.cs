@@ -780,8 +780,8 @@ namespace Dataweb.NShape.Advanced {
 				GdiHelpers.ApplyGraphicsSettings(g, RenderingQuality.MaximumQuality);
 				g.Clear(transparentColor);
 
-				int startCapSize = IsShapedLineCap(StartCapStyleInternal) ? StartCapStyleInternal.CapSize : 0;
-				int endCapSize = IsShapedLineCap(EndCapStyleInternal) ? EndCapStyleInternal.CapSize : 0;
+				int startCapSize = IsShapedLineCap(StartCapStyleInternal) ? (int)StartCapStyleInternal.CapSize : 0;
+				int endCapSize = IsShapedLineCap(EndCapStyleInternal) ? (int)EndCapStyleInternal.CapSize : 0;
 
 				int s = (int)Math.Max(startCapSize, endCapSize) * 4;
 				int width = Math.Max(image.Width * 2, s);
