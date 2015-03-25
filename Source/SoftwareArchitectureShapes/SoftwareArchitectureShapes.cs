@@ -670,13 +670,14 @@ namespace Dataweb.NShape.SoftwareArchitectureShapes {
 			yield return new CommandMenuItemDef(Properties.Resources.CaptionTxt__AppendColumn, null, string.Empty, true,
 				new AddColumnCommand(this, newColumnTxt));
 
-			/*if (captionIdx == columnCaptions.Count)
+			if (captionIdx == columnCaptions.Count)
 				captionIdx--;
 
-			if (captionIdx < 0)
-				captionIdx = 0;*/
-
 			bool isFeasible = captionIdx >= 0;
+
+			if (captionIdx < 0)
+				captionIdx = 0;
+
 			string description = Properties.Resources.MessageTxt_NoCaptionClicked;
 			if (isFeasible)
 				description = string.Format(Properties.Resources.MessageFmt_InsertNewColumnBeforeColumn0, columnNames[captionIdx]);
@@ -685,8 +686,12 @@ namespace Dataweb.NShape.SoftwareArchitectureShapes {
 			
 			if (isFeasible)
 				description = string.Format(Properties.Resources.MessageFmt_RemoveColumn0, columnNames[captionIdx]);
+
+			if (captionIdx == 0)
+				yield break;
+
 			yield return new CommandMenuItemDef(Properties.Resources.CaptionTxt_RemoveColumn,
-				null, description, isFeasible, isFeasible ? new RemoveColumnCommand(this, captionIdx, columnCaptions[captionIdx - 1].Text) : null);
+				null, description, isFeasible, isFeasible ? new RemoveColumnCommand(this, captionIdx, columnCaptions[captionIdx == 0 ? 0 : captionIdx - 1].Text) : null);
 		}
 
 

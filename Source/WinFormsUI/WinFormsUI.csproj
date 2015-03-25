@@ -85,14 +85,14 @@
     <Compile Include="DesignEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DesignEditorDialog.designer.cs">
+    <Compile Include="DesignEditorDialog.Designer.cs">
       <DependentUpon>DesignEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Designers.cs" />
     <Compile Include="DesignPresenter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DesignPresenter.designer.cs">
+    <Compile Include="DesignPresenter.Designer.cs">
       <DependentUpon>DesignPresenter.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportDiagramDialog.cs">
@@ -110,7 +110,7 @@
     <Compile Include="LayoutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LayoutDialog.designer.cs">
+    <Compile Include="LayoutDialog.Designer.cs">
       <DependentUpon>LayoutDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ShapeInfoDialog.cs">
@@ -135,25 +135,25 @@
     <Compile Include="Display.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Display.designer.cs">
+    <Compile Include="Display.Designer.cs">
       <DependentUpon>Display.cs</DependentUpon>
     </Compile>
     <Compile Include="FontFamilyListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FontFamilyListBox.designer.cs">
+    <Compile Include="FontFamilyListBox.Designer.cs">
       <DependentUpon>FontFamilyListBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageEditor.designer.cs">
+    <Compile Include="ImageEditor.Designer.cs">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="InplaceTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InplaceTextBox.designer.cs">
+    <Compile Include="InplaceTextBox.Designer.cs">
       <DependentUpon>InplaceTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="LayerListView.cs">
@@ -165,13 +165,13 @@
     <Compile Include="LibraryManagementDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryManagementDialog.designer.cs">
+    <Compile Include="LibraryManagementDialog.Designer.cs">
       <DependentUpon>LibraryManagementDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelTreeViewPresenter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelTreeViewPresenter.designer.cs">
+    <Compile Include="ModelTreeViewPresenter.Designer.cs">
       <DependentUpon>ModelTreeViewPresenter.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,31 +186,31 @@
     <Compile Include="StyleListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StyleListBox.designer.cs">
+    <Compile Include="StyleListBox.Designer.cs">
       <DependentUpon>StyleListBox.cs</DependentUpon>
     </Compile>
     <Compile Include="TemplateEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TemplateEditorDialog.designer.cs">
+    <Compile Include="TemplateEditorDialog.Designer.cs">
       <DependentUpon>TemplateEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="TextEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TextEditorDialog.designer.cs">
+    <Compile Include="TextEditorDialog.Designer.cs">
       <DependentUpon>TextEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolSetListViewPresenter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolSetListViewPresenter.designer.cs">
+    <Compile Include="ToolSetListViewPresenter.Designer.cs">
       <DependentUpon>ToolSetListViewPresenter.cs</DependentUpon>
     </Compile>
     <Compile Include="VerticalTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="VerticalTabControl.designer.cs">
+    <Compile Include="VerticalTabControl.Designer.cs">
       <DependentUpon>VerticalTabControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WinFormHelpers.cs" />

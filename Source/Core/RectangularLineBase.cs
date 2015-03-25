@@ -253,6 +253,7 @@ namespace Dataweb.NShape.Advanced {
 					DrawStartCapBackground(graphics, safeStartPoint.X, safeStartPoint.Y);
 					DrawEndCapBackground(graphics, safeEndPoint.X, safeEndPoint.Y);
 					// Draw line
+#warning CalculateLinePath (с обходом путей)
 					DrawOutline(graphics, pen);
 				} finally {
 					shapePoints[0] = startPoint;

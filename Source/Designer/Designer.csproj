@@ -175,13 +175,13 @@
     <Compile Include="DiagramSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DiagramSettingsForm.designer.cs">
+    <Compile Include="DiagramSettingsForm.Designer.cs">
       <DependentUpon>DiagramSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DisplaySettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplaySettingsForm.designer.cs">
+    <Compile Include="DisplaySettingsForm.Designer.cs">
       <DependentUpon>DisplaySettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EventMonitorForm.cs">
@@ -193,13 +193,13 @@
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.designer.cs">
+    <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OpenAdoNetRepositoryDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OpenAdoNetRepositoryDialog.designer.cs">
+    <Compile Include="OpenAdoNetRepositoryDialog.Designer.cs">
       <DependentUpon>OpenAdoNetRepositoryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -241,6 +241,9 @@
     <EmbeddedResource Include="Resources\DebugShowInvalidatedAreas.bmp" />
     <EmbeddedResource Include="Resources\DebugShowCellOccupation.bmp" />
     <None Include="Resources\NShapeLogo.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
