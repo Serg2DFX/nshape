@@ -17,7 +17,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 
 namespace NShapeTest {
@@ -32,7 +36,7 @@ namespace NShapeTest {
 
 		public static void CompareId(IEntity entityA, IEntity entityB) {
 			if (CompareIds) {
-				Assert.AreEqual<bool>(entityA != null, entityB != null);
+				Assert.AreEqual(entityA != null, entityB != null);
 				if (entityA != null && entityB != null) {
 					Assert.IsNotNull(entityA.Id);
 					Assert.IsNotNull(entityB.Id);
@@ -47,7 +51,7 @@ namespace NShapeTest {
 			IRepository repositoryB = projectB.Repository;
 
 			// Compare versions
-			Assert.AreEqual<int>(repositoryA.Version, repositoryB.Version);
+			Assert.AreEqual(repositoryA.Version, repositoryB.Version);
 			int version = repositoryA.Version;
 
 			// Compare Designs
@@ -90,7 +94,7 @@ namespace NShapeTest {
 				Design designB = null;
 				Assert.IsTrue(designsBDict.TryGetValue(designA.Name, out designB));
 
-				Assert.AreEqual<string>(designA.Name, designB.Name);
+				Assert.AreEqual(designA.Name, designB.Name);
 				Compare(designA, designB, version);
 				Assert.AreEqual(designA.CapStyles.Count, designB.CapStyles.Count);
 				Assert.AreEqual(designA.CharacterStyles.Count, designB.CharacterStyles.Count);
@@ -155,8 +159,8 @@ namespace NShapeTest {
 				return;
 			CompareBaseStyle(styleA, styleB, version);
 			Compare(styleA.ColorStyle, styleB.ColorStyle, version);
-			Assert.AreEqual<CapShape>(styleA.CapShape, styleB.CapShape);
-			Assert.AreEqual<short>(styleA.CapSize, styleB.CapSize);
+			Assert.AreEqual(styleA.CapShape, styleB.CapShape);
+			Assert.AreEqual(styleA.CapSize, styleB.CapSize);
 		}
 
 
@@ -165,11 +169,11 @@ namespace NShapeTest {
 				return;
 			CompareBaseStyle(styleA, styleB, version);
 			Compare(styleA.ColorStyle, styleB.ColorStyle, version);
-			Assert.AreEqual<FontFamily>(styleA.FontFamily, styleB.FontFamily);
-			Assert.AreEqual<string>(styleA.FontName, styleB.FontName);
-			Assert.AreEqual<int>(styleA.Size, styleB.Size);
-			Assert.AreEqual<float>(styleA.SizeInPoints, styleB.SizeInPoints);
-			Assert.AreEqual<FontStyle>(styleA.Style, styleB.Style);
+			Assert.AreEqual(styleA.FontFamily, styleB.FontFamily);
+			Assert.AreEqual(styleA.FontName, styleB.FontName);
+			Assert.AreEqual(styleA.Size, styleB.Size);
+			Assert.AreEqual(styleA.SizeInPoints, styleB.SizeInPoints);
+			Assert.AreEqual(styleA.Style, styleB.Style);
 		}
 
 
@@ -178,9 +182,9 @@ namespace NShapeTest {
 				return;
 			if (styleA == ColorStyle.Empty && styleB == ColorStyle.Empty) return;
 			CompareBaseStyle(styleA, styleB, version);
-			Assert.AreEqual<int>(styleA.Color.ToArgb(), styleB.Color.ToArgb());
-			if (version >= 3) Assert.AreEqual<bool>(styleA.ConvertToGray, styleB.ConvertToGray);
-			Assert.AreEqual<byte>(styleA.Transparency, styleB.Transparency);
+			Assert.AreEqual(styleA.Color.ToArgb(), styleB.Color.ToArgb());
+			if (version >= 3) Assert.AreEqual(styleA.ConvertToGray, styleB.ConvertToGray);
+			Assert.AreEqual(styleA.Transparency, styleB.Transparency);
 		}
 
 
@@ -190,14 +194,14 @@ namespace NShapeTest {
 			CompareBaseStyle(styleA, styleB, version);
 			Compare(styleA.BaseColorStyle, styleB.BaseColorStyle, version);
 			Compare(styleA.AdditionalColorStyle, styleB.AdditionalColorStyle, version);
-			if (version >= 3) Assert.AreEqual<bool>(styleA.ConvertToGrayScale, styleB.ConvertToGrayScale);
-			Assert.AreEqual<FillMode>(styleA.FillMode, styleB.FillMode);
-			Assert.AreEqual<System.Drawing.Drawing2D.HatchStyle>(styleA.FillPattern, styleB.FillPattern);
-			Assert.AreEqual<short>(styleA.GradientAngle, styleB.GradientAngle);
+			if (version >= 3) Assert.AreEqual(styleA.ConvertToGrayScale, styleB.ConvertToGrayScale);
+			Assert.AreEqual(styleA.FillMode, styleB.FillMode);
+			Assert.AreEqual(styleA.FillPattern, styleB.FillPattern);
+			Assert.AreEqual(styleA.GradientAngle, styleB.GradientAngle);
 			CompareNamedImage(styleA.Image, styleB.Image, version);
 			CompareFloat(styleA.ImageGammaCorrection, styleB.ImageGammaCorrection);
-			Assert.AreEqual<ImageLayoutMode>(styleA.ImageLayout, styleB.ImageLayout);
-			Assert.AreEqual<byte>(styleA.ImageTransparency, styleB.ImageTransparency);
+			Assert.AreEqual(styleA.ImageLayout, styleB.ImageLayout);
+			Assert.AreEqual(styleA.ImageTransparency, styleB.ImageTransparency);
 		}
 
 
@@ -206,25 +210,25 @@ namespace NShapeTest {
 				return;
 			CompareBaseStyle(styleA, styleB, version);
 			Compare(styleA.ColorStyle, styleB.ColorStyle, version);
-			Assert.AreEqual<System.Drawing.Drawing2D.DashCap>(styleA.DashCap, styleB.DashCap);
+			Assert.AreEqual(styleA.DashCap, styleB.DashCap);
 			Assert.IsNotNull(styleA.DashPattern);
 			Assert.IsNotNull(styleB.DashPattern);
-			Assert.AreEqual<int>(styleA.DashPattern.Length, styleB.DashPattern.Length);
+			Assert.AreEqual(styleA.DashPattern.Length, styleB.DashPattern.Length);
 			for (int i = styleA.DashPattern.Length - 1; i >= 0; --i)
 				CompareFloat(styleA.DashPattern[i], styleB.DashPattern[i]);
-			Assert.AreEqual<DashType>(styleA.DashType, styleB.DashType);
-			Assert.AreEqual<System.Drawing.Drawing2D.LineJoin>(styleA.LineJoin, styleB.LineJoin);
-			Assert.AreEqual<int>(styleA.LineWidth, styleB.LineWidth);
+			Assert.AreEqual(styleA.DashType, styleB.DashType);
+			Assert.AreEqual(styleA.LineJoin, styleB.LineJoin);
+			Assert.AreEqual(styleA.LineWidth, styleB.LineWidth);
 		}
 
 
 		public static void Compare(IParagraphStyle styleA, IParagraphStyle styleB, int version) {
 			CompareBaseStyle(styleA, styleB, version);
 			if (styleA != null && styleB != null) {
-				Assert.AreEqual<ContentAlignment>(styleA.Alignment, styleB.Alignment);
-				Assert.AreEqual<TextPadding>(styleA.Padding, styleB.Padding);
-				Assert.AreEqual<StringTrimming>(styleA.Trimming, styleB.Trimming);
-				Assert.AreEqual<bool>(styleA.WordWrap, styleB.WordWrap);
+				Assert.AreEqual(styleA.Alignment, styleB.Alignment);
+				Assert.AreEqual(styleA.Padding, styleB.Padding);
+				Assert.AreEqual(styleA.Trimming, styleB.Trimming);
+				Assert.AreEqual(styleA.WordWrap, styleB.WordWrap);
 			}
 		}
 
@@ -247,16 +251,16 @@ namespace NShapeTest {
 			Compare(templateA.Shape.ModelObject, templateB.Shape.ModelObject, version);
 			CompareObjectCount(templateA.Shape.GetControlPointIds(ControlPointCapabilities.All), templateB.Shape.GetControlPointIds(ControlPointCapabilities.All));
 			foreach (ControlPointId ptId in templateA.Shape.GetControlPointIds(ControlPointCapabilities.Connect)) {
-				Assert.AreEqual<TerminalId>(templateA.GetMappedTerminalId(ptId), templateB.GetMappedTerminalId(ptId));
-				Assert.AreEqual<string>(templateA.GetMappedTerminalName(ptId), templateB.GetMappedTerminalName(ptId));
+				Assert.AreEqual(templateA.GetMappedTerminalId(ptId), templateB.GetMappedTerminalId(ptId));
+				Assert.AreEqual(templateA.GetMappedTerminalName(ptId), templateB.GetMappedTerminalName(ptId));
 			}
 		}
 
 
 		public static void Compare(IModelMapping mappingA, IModelMapping mappingB, int version) {
 			CompareId(mappingA, mappingB);
-			Assert.AreEqual<int>(mappingA.ModelPropertyId, mappingB.ModelPropertyId);
-			Assert.AreEqual<int>(mappingA.ShapePropertyId, mappingB.ShapePropertyId);
+			Assert.AreEqual(mappingA.ModelPropertyId, mappingB.ModelPropertyId);
+			Assert.AreEqual(mappingA.ShapePropertyId, mappingB.ShapePropertyId);
 			if (mappingA is NumericModelMapping && mappingB is NumericModelMapping)
 				Compare((NumericModelMapping)mappingA, (NumericModelMapping)mappingB, version);
 			else if (mappingA is FormatModelMapping && mappingB is FormatModelMapping)
@@ -268,21 +272,21 @@ namespace NShapeTest {
 
 
 		public static void Compare(NumericModelMapping mappingA, NumericModelMapping mappingB, int version) {
-			Assert.AreEqual<NumericModelMapping.MappingType>(mappingA.Type, mappingB.Type);
+			Assert.AreEqual(mappingA.Type, mappingB.Type);
 			Assert.IsTrue(Math.Abs(mappingA.Intercept - mappingB.Intercept) < floatEqualityDelta);
 			Assert.IsTrue(Math.Abs(mappingA.Slope - mappingB.Slope) < floatEqualityDelta);
 		}
 
 
 		public static void Compare(FormatModelMapping mappingA, FormatModelMapping mappingB, int version) {
-			Assert.AreEqual<FormatModelMapping.MappingType>(mappingA.Type, mappingB.Type);
-			Assert.AreEqual<string>(mappingA.Format, mappingB.Format);
+			Assert.AreEqual(mappingA.Type, mappingB.Type);
+			Assert.AreEqual(mappingA.Format, mappingB.Format);
 		}
 
 
 		public static void Compare(StyleModelMapping mappingA, StyleModelMapping mappingB, int version) {
-			Assert.AreEqual<StyleModelMapping.MappingType>(mappingA.Type, mappingB.Type);
-			Assert.AreEqual<int>(mappingA.ValueRangeCount, mappingB.ValueRangeCount);
+			Assert.AreEqual(mappingA.Type, mappingB.Type);
+			Assert.AreEqual(mappingA.ValueRangeCount, mappingB.ValueRangeCount);
 			switch (mappingA.Type) {
 				case StyleModelMapping.MappingType.IntegerStyle:
 					List<int> intRangesA = new List<int>(mappingA.ValueRangeCount);
@@ -290,7 +294,7 @@ namespace NShapeTest {
 					List<int> intRangesB = new List<int>(mappingB.ValueRangeCount);
 					foreach (object obj in mappingB.ValueRanges) intRangesB.Add((int)obj);
 					for (int i = mappingA.ValueRangeCount - 1; i >= 0; --i)
-						Assert.AreEqual<int>(intRangesA[i], intRangesB[i]);
+						Assert.AreEqual(intRangesA[i], intRangesB[i]);
 					break;
 
 				case StyleModelMapping.MappingType.FloatStyle:
@@ -312,30 +316,30 @@ namespace NShapeTest {
 		#region Compare diagrams
 
 		public static void Compare(Diagram diagramA, Diagram diagramB, int version) {
-			Assert.AreEqual<bool>(diagramA != null, diagramB != null);
+			Assert.AreEqual(diagramA != null, diagramB != null);
 			if (diagramA != null && diagramB != null) {
 				CompareId(diagramA, diagramB);
-				Assert.AreEqual<int>(diagramA.BackgroundColor.ToArgb(), diagramB.BackgroundColor.ToArgb());
-				Assert.AreEqual<int>(diagramA.BackgroundGradientColor.ToArgb(), diagramB.BackgroundGradientColor.ToArgb());
+				Assert.AreEqual(diagramA.BackgroundColor.ToArgb(), diagramB.BackgroundColor.ToArgb());
+				Assert.AreEqual(diagramA.BackgroundGradientColor.ToArgb(), diagramB.BackgroundGradientColor.ToArgb());
 				if (diagramA.BackgroundImage != null && diagramB.BackgroundImage != null) {
 					CompareString(diagramA.BackgroundImage.Name, diagramB.BackgroundImage.Name, false);
-					Assert.AreEqual<int>(diagramA.BackgroundImage.Width, diagramB.BackgroundImage.Width);
-					Assert.AreEqual<int>(diagramA.BackgroundImage.Height, diagramB.BackgroundImage.Height);
+					Assert.AreEqual(diagramA.BackgroundImage.Width, diagramB.BackgroundImage.Width);
+					Assert.AreEqual(diagramA.BackgroundImage.Height, diagramB.BackgroundImage.Height);
 				}
 				CompareFloat(diagramA.BackgroundImageGamma, diagramB.BackgroundImageGamma);
-				Assert.AreEqual<bool>(diagramA.BackgroundImageGrayscale, diagramB.BackgroundImageGrayscale);
-				Assert.AreEqual<ImageLayoutMode>(diagramA.BackgroundImageLayout, diagramB.BackgroundImageLayout);
-				Assert.AreEqual<byte>(diagramA.BackgroundImageTransparency, diagramB.BackgroundImageTransparency);
-				Assert.AreEqual<int>(diagramA.BackgroundImageTransparentColor.ToArgb(), diagramB.BackgroundImageTransparentColor.ToArgb());
-				Assert.AreEqual<IDisplayService>(diagramA.DisplayService, diagramB.DisplayService);
-				Assert.AreEqual<int>(diagramA.Height, diagramB.Height);
-				Assert.AreEqual<int>(diagramA.Width, diagramB.Width);
-				Assert.AreEqual<bool>(diagramA.HighQualityRendering, diagramB.HighQualityRendering);
+				Assert.AreEqual(diagramA.BackgroundImageGrayscale, diagramB.BackgroundImageGrayscale);
+				Assert.AreEqual(diagramA.BackgroundImageLayout, diagramB.BackgroundImageLayout);
+				Assert.AreEqual(diagramA.BackgroundImageTransparency, diagramB.BackgroundImageTransparency);
+				Assert.AreEqual(diagramA.BackgroundImageTransparentColor.ToArgb(), diagramB.BackgroundImageTransparentColor.ToArgb());
+				Assert.AreEqual(diagramA.DisplayService, diagramB.DisplayService);
+				Assert.AreEqual(diagramA.Height, diagramB.Height);
+				Assert.AreEqual(diagramA.Width, diagramB.Width);
+				Assert.AreEqual(diagramA.HighQualityRendering, diagramB.HighQualityRendering);
 				CompareString(diagramA.Name, diagramB.Name, false);
 				if (version >= 3) CompareString(diagramA.Title, diagramB.Title, false);
 				//
 				// Compare Layers
-				Assert.AreEqual<int>(diagramA.Layers.Count, diagramB.Layers.Count);
+				Assert.AreEqual(diagramA.Layers.Count, diagramB.Layers.Count);
 				SortedList<LayerIds, Layer> layersA = new SortedList<LayerIds, Layer>();
 				foreach (Layer l in diagramA.Layers) layersA.Add(l.Id, l);
 				SortedList<LayerIds, Layer> layersB = new SortedList<LayerIds, Layer>();
@@ -343,9 +347,9 @@ namespace NShapeTest {
 				foreach (KeyValuePair<LayerIds, Layer> pair in layersA) {
 					Layer layerA = pair.Value;
 					Layer layerB = layersB[pair.Key];
-					Assert.AreEqual<LayerIds>(layerA.Id, layerB.Id);
-					Assert.AreEqual<int>(layerA.LowerZoomThreshold, layerB.LowerZoomThreshold);
-					Assert.AreEqual<int>(layerA.UpperZoomThreshold, layerB.UpperZoomThreshold);
+					Assert.AreEqual(layerA.Id, layerB.Id);
+					Assert.AreEqual(layerA.LowerZoomThreshold, layerB.LowerZoomThreshold);
+					Assert.AreEqual(layerA.UpperZoomThreshold, layerB.UpperZoomThreshold);
 					CompareString(layerA.Name, layerB.Name, false);
 					CompareString(layerA.Title, layerB.Title, false);
 				}
@@ -353,7 +357,7 @@ namespace NShapeTest {
 				// Compare Shapes
 				IEnumerator<Shape> shapesA = diagramA.Shapes.BottomUp.GetEnumerator();
 				IEnumerator<Shape> shapesB = diagramB.Shapes.BottomUp.GetEnumerator();
-				Assert.AreEqual<int>(diagramA.Shapes.Count, diagramB.Shapes.Count);
+				Assert.AreEqual(diagramA.Shapes.Count, diagramB.Shapes.Count);
 				for (int i = diagramA.Shapes.Count - 1; i >= 0; --i) {
 					Compare(shapesA.Current, shapesB.Current, version);
 					Assert.AreEqual(shapesA.MoveNext(), shapesB.MoveNext());
@@ -367,54 +371,54 @@ namespace NShapeTest {
 		#region Compare shapes
 
 		public static void Compare(Shape shapeA, Shape shapeB, int version) {
-			Assert.AreEqual<bool>(shapeA != null, shapeB != null);
+			Assert.AreEqual(shapeA != null, shapeB != null);
 			if (shapeA != null && shapeB != null) {
 				// Compare base properties
-				Assert.AreEqual<string>(shapeA.Type.FullName, shapeB.Type.FullName);
+				Assert.AreEqual(shapeA.Type.FullName, shapeB.Type.FullName);
 				CompareId(shapeA, shapeB);
 				CompareId(shapeA.Diagram, shapeB.Diagram);
 				CompareId(shapeA.Template, shapeB.Template);
-				Assert.AreEqual<LayerIds>(shapeA.Layers, shapeB.Layers);
-				Assert.AreEqual<IDisplayService>(shapeA.DisplayService, shapeB.DisplayService);
+				Assert.AreEqual(shapeA.Layers, shapeB.Layers);
+				Assert.AreEqual(shapeA.DisplayService, shapeB.DisplayService);
 				if (version <= 3 && shapeA is ILinearShape) {
 					CompareBounds(shapeA.GetBoundingRectangle(true), shapeB.GetBoundingRectangle(true), version);
 					CompareBounds(shapeA.GetBoundingRectangle(false), shapeB.GetBoundingRectangle(false), version);
 				} else {
-					Assert.AreEqual<Rectangle>(shapeA.GetBoundingRectangle(true), shapeB.GetBoundingRectangle(true));
-					Assert.AreEqual<Rectangle>(shapeA.GetBoundingRectangle(false), shapeB.GetBoundingRectangle(false));
+					Assert.AreEqual(shapeA.GetBoundingRectangle(true), shapeB.GetBoundingRectangle(true));
+					Assert.AreEqual(shapeA.GetBoundingRectangle(false), shapeB.GetBoundingRectangle(false));
 				}
 				Compare(shapeA.LineStyle, shapeB.LineStyle, version);
 				Compare(shapeA.ModelObject, shapeB.ModelObject, version);
 				// Comparing the whole shapes would lead to endless recursive calls in case of child shapes
 				CompareId(shapeA.Parent, shapeB.Parent);
-				Assert.AreEqual<char>(shapeA.SecurityDomainName, shapeB.SecurityDomainName);
-				Assert.AreEqual<bool>(shapeA.Tag != null, shapeB.Tag != null);
+				Assert.AreEqual(shapeA.SecurityDomainName, shapeB.SecurityDomainName);
+				Assert.AreEqual(shapeA.Tag != null, shapeB.Tag != null);
 				CompareString(shapeA.Type.FullName, shapeB.Type.FullName, true);
 				if (version <= 3 && shapeA is ILinearShape) {
 					Point a = new Point(shapeA.X, shapeA.Y);
 					Point b = new Point(shapeB.X, shapeB.Y);
 					ComparePosition(a, b, version);
 				} else {
-					Assert.AreEqual<int>(shapeA.X, shapeB.X);
-					Assert.AreEqual<int>(shapeA.Y, shapeB.Y);
+					Assert.AreEqual(shapeA.X, shapeB.X);
+					Assert.AreEqual(shapeA.Y, shapeB.Y);
 				}
 				// 
 				// Compare ZOrder and Layers
 				// ToDo: Implement this
 				//
 				// Compare children
-				Assert.AreEqual<int>(shapeA.Children.Count, shapeB.Children.Count);
+				Assert.AreEqual(shapeA.Children.Count, shapeB.Children.Count);
 				IEnumerator<Shape> childrenA = shapeA.Children.GetEnumerator();
 				IEnumerator<Shape> childrenB = shapeB.Children.GetEnumerator();
 				for (int i = shapeA.Children.Count - 1; i >= 0; --i) {
 					Compare(childrenA.Current, childrenB.Current, version);
-					Assert.AreEqual<bool>(childrenA.MoveNext(), childrenB.MoveNext());
+					Assert.AreEqual(childrenA.MoveNext(), childrenB.MoveNext());
 				}
 				//
 				// Compare connections
 				bool shapeAConnected = (shapeA.IsConnected(ControlPointId.Any, null) != ControlPointId.None);
 				bool shapeBConnected = (shapeB.IsConnected(ControlPointId.Any, null) != ControlPointId.None);
-				Assert.AreEqual<bool>(shapeAConnected, shapeBConnected);
+				Assert.AreEqual(shapeAConnected, shapeBConnected);
 				if (shapeAConnected && shapeBConnected) {
 					if (CompareIds)
 						CompareConnectionsById(shapeA, shapeB, version);
@@ -424,13 +428,13 @@ namespace NShapeTest {
 				}
 				//
 				// Compare specific properties
-				Assert.AreEqual<bool>(shapeA is ILinearShape, shapeB is ILinearShape);
+				Assert.AreEqual(shapeA is ILinearShape, shapeB is ILinearShape);
 				if (shapeA is ILinearShape && shapeB is ILinearShape)
 					Compare((ILinearShape)shapeA, (ILinearShape)shapeB, version);
-				Assert.AreEqual<bool>(shapeA is IPlanarShape, shapeB is IPlanarShape);
+				Assert.AreEqual(shapeA is IPlanarShape, shapeB is IPlanarShape);
 				if (shapeA is IPlanarShape && shapeB is IPlanarShape)
 					Compare((IPlanarShape)shapeA, (IPlanarShape)shapeB, version);
-				Assert.AreEqual<bool>(shapeA is ICaptionedShape, shapeB is ICaptionedShape);
+				Assert.AreEqual(shapeA is ICaptionedShape, shapeB is ICaptionedShape);
 				if (shapeA is ICaptionedShape && shapeB is ICaptionedShape)
 					Compare((ICaptionedShape)shapeA, (ICaptionedShape)shapeB, version);
 			}
@@ -442,7 +446,7 @@ namespace NShapeTest {
 			List<ShapeConnectionInfo> connectionsB = new List<ShapeConnectionInfo>(shapeB.GetConnectionInfos(ControlPointId.Any, null));
 			if (connectionsA.Count != connectionsB.Count) {
 			}
-			Assert.AreEqual<int>(connectionsA.Count, connectionsB.Count);
+			Assert.AreEqual(connectionsA.Count, connectionsB.Count);
 			for (int sIdx = connectionsA.Count - 1; sIdx >= 0; --sIdx) {
 				bool connectionFound = false;
 				for (int lIdx = connectionsB.Count - 1; lIdx >= 0; --lIdx) {
@@ -492,29 +496,29 @@ namespace NShapeTest {
 
 
 		private static void Compare(ILinearShape shapeA, ILinearShape shapeB, int version) {
-			Assert.AreEqual<bool>(shapeA != null, shapeB != null);
+			Assert.AreEqual(shapeA != null, shapeB != null);
 			if (shapeA != null && shapeB != null) {
-				Assert.AreEqual<bool>(shapeA.IsDirected, shapeB.IsDirected);
-				Assert.AreEqual<int>(shapeA.MaxVertexCount, shapeB.MaxVertexCount);
-				Assert.AreEqual<int>(shapeA.MinVertexCount, shapeB.MinVertexCount);
-				Assert.AreEqual<int>(shapeA.VertexCount, shapeB.VertexCount);
+				Assert.AreEqual(shapeA.IsDirected, shapeB.IsDirected);
+				Assert.AreEqual(shapeA.MaxVertexCount, shapeB.MaxVertexCount);
+				Assert.AreEqual(shapeA.MinVertexCount, shapeB.MinVertexCount);
+				Assert.AreEqual(shapeA.VertexCount, shapeB.VertexCount);
 			}
 		}
 
 
 		private static void Compare(IPlanarShape shapeA, IPlanarShape shapeB, int version) {
-			Assert.AreEqual<bool>(shapeA != null, shapeB != null);
+			Assert.AreEqual(shapeA != null, shapeB != null);
 			if (shapeA != null && shapeB != null) {
-				Assert.AreEqual<int>(shapeA.Angle, shapeB.Angle);
+				Assert.AreEqual(shapeA.Angle, shapeB.Angle);
 				Compare(shapeA.FillStyle, shapeB.FillStyle, version);
 			}
 		}
 
 
 		private static void Compare(ICaptionedShape shapeA, ICaptionedShape shapeB, int version) {
-			Assert.AreEqual<bool>(shapeA != null, shapeB != null);
+			Assert.AreEqual(shapeA != null, shapeB != null);
 			if (shapeA != null && shapeB != null) {
-				Assert.AreEqual<int>(shapeA.CaptionCount, shapeB.CaptionCount);
+				Assert.AreEqual(shapeA.CaptionCount, shapeB.CaptionCount);
 				for (int i = shapeA.CaptionCount - 1; i >= 0; --i) {
 					Compare(shapeA.GetCaptionCharacterStyle(i), shapeB.GetCaptionCharacterStyle(i), version);
 					Compare(shapeA.GetCaptionParagraphStyle(i), shapeB.GetCaptionParagraphStyle(i), version);
@@ -552,9 +556,9 @@ namespace NShapeTest {
 		#region Compare model objects
 
 		public static void Compare(IModelObject modelObjectA, IModelObject modelObjectB, int version) {
-			Assert.AreEqual<bool>(modelObjectA != null, modelObjectB != null);
+			Assert.AreEqual(modelObjectA != null, modelObjectB != null);
 			if (modelObjectA != null && modelObjectB != null) {
-				Assert.AreEqual<string>(modelObjectA.Type.FullName, modelObjectB.Type.FullName);
+				Assert.AreEqual(modelObjectA.Type.FullName, modelObjectB.Type.FullName);
 				CompareId((IEntity)modelObjectA, (IEntity)modelObjectB);
 				Assert.AreEqual(modelObjectA.Name, modelObjectB.Name);
 
@@ -567,7 +571,7 @@ namespace NShapeTest {
 				Compare(modelObjectA.Parent, modelObjectB.Parent, version);
 				// Compare specific model object types
 				if (modelObjectA is GenericModelObject) {
-					Assert.AreEqual<bool>(modelObjectA is GenericModelObject, modelObjectB is GenericModelObject);
+					Assert.AreEqual(modelObjectA is GenericModelObject, modelObjectB is GenericModelObject);
 					Compare((GenericModelObject)modelObjectA, (GenericModelObject)modelObjectB, version);
 				}
 			}
@@ -575,7 +579,7 @@ namespace NShapeTest {
 
 
 		public static void Compare(GenericModelObject modelObjectA, GenericModelObject modelObjectB, int version) {
-			Assert.AreEqual<int>(modelObjectA.IntegerValue, modelObjectB.IntegerValue);
+			Assert.AreEqual(modelObjectA.IntegerValue, modelObjectB.IntegerValue);
 			CompareFloat(modelObjectA.FloatValue, modelObjectB.FloatValue);
 			CompareString(modelObjectA.StringValue, modelObjectB.StringValue, false);
 		}
@@ -600,8 +604,8 @@ namespace NShapeTest {
 
 		private static void CompareBaseStyle(IStyle styleA, IStyle styleB, int version) {
 			CompareId(styleA, styleB);
-			Assert.AreEqual<string>(styleA.Name, styleB.Name);
-			Assert.AreEqual<string>(styleA.Title, styleB.Title);
+			Assert.AreEqual(styleA.Name, styleB.Name);
+			Assert.AreEqual(styleA.Title, styleB.Title);
 		}
 
 
@@ -611,7 +615,7 @@ namespace NShapeTest {
 
 
 		private static void CompareString(string stringA, string stringB, bool exact) {
-			if (exact) Assert.AreEqual<string>(stringA, stringB);
+			if (exact) Assert.AreEqual(stringA, stringB);
 			else {
 				if (!string.IsNullOrEmpty(stringA) && !string.IsNullOrEmpty(stringB))
 					Assert.IsTrue(stringA.Equals(stringB, StringComparison.InvariantCultureIgnoreCase));
@@ -638,18 +642,18 @@ namespace NShapeTest {
 			if (imageA == null && imageB == null) return;
 			CompareString(imageA.Name, imageB.Name, true);
 			if (imageA.Image == null && imageB.Image == null) return;
-			Assert.AreEqual<Size>(imageA.Image.Size, imageB.Image.Size);
+			Assert.AreEqual(imageA.Image.Size, imageB.Image.Size);
 			CompareFloat(imageA.Image.HorizontalResolution, imageB.Image.HorizontalResolution);
 			CompareFloat(imageA.Image.VerticalResolution, imageB.Image.VerticalResolution);
-			Assert.AreEqual<System.Drawing.Imaging.PixelFormat>(imageA.Image.PixelFormat, imageB.Image.PixelFormat);
-			Assert.AreEqual<System.Drawing.Imaging.ImageFormat>(imageA.Image.RawFormat, imageB.Image.RawFormat);
+			Assert.AreEqual(imageA.Image.PixelFormat, imageB.Image.PixelFormat);
+			Assert.AreEqual(imageA.Image.RawFormat, imageB.Image.RawFormat);
 		}
 
 
 		private static void CompareObjectCount<T>(IEnumerable<T> objectsA, IEnumerable<T> objectsB) {
 			int objectCntA = Count(objectsA);
 			int objectCntB = Count(objectsB);
-			Assert.AreEqual<int>(objectCntA, objectCntB);
+			Assert.AreEqual(objectCntA, objectCntB);
 		}
 
 

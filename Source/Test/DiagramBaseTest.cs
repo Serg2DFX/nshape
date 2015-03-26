@@ -18,7 +18,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
@@ -31,7 +35,11 @@ namespace NShapeTest {
 	/// <summary>
 	/// Summary description for UnitTest1
 	/// </summary>
+#if NUnit
+	[TestFixture]
+#else
 	[TestClass]
+#endif
 	public class DiagramBaseTest {
 
 		public DiagramBaseTest() {
@@ -40,6 +48,8 @@ namespace NShapeTest {
 			//
 		}
 
+#if !NUnit
+		private TestContext testContextInstance;
 		/// <summary>
 		///Gets or sets the test context which provides
 		///information about and functionality for the current test run.
@@ -48,6 +58,13 @@ namespace NShapeTest {
 			get { return testContextInstance; }
 			set { testContextInstance = value; }
 		}
+#else
+		public TestContext TestContext
+		{
+			get { return TestContext.CurrentContext; }
+		}
+
+#endif
 
 
 		#region Additional test attributes
@@ -64,15 +81,35 @@ namespace NShapeTest {
 		//public static void MyClassCleanup() { }
 
 		// Use TestInitialize to run code before running each test 
-		[TestInitialize()]
+#if NUnit
+	[SetUp]
+#else
+	[TestInitialize]
+#endif
 		public void MyTestInitialize() {
-			TestContext.SaveBeginTimer(TestContext.TestName + " Timer");
+			TestContext.SaveBeginTimer(
+#if NUnit
+				TestContext.Test.Name
+#else
+				TestContext.TestName
+#endif
+				+ " Timer");
 		}
 
 		// Use TestCleanup to run code after each test has run
-		[TestCleanup()]
+#if NUnit
+	[TearDown]
+#else
+	[TestCleanup]
+#endif
 		public void MyTestCleanup() {
-			TestContext.SaveEndTimer(TestContext.TestName + " Timer");
+			TestContext.SaveEndTimer(
+#if NUnit
+				TestContext.Test.Name
+#else
+				TestContext.TestName
+#endif
+				+ " Timer");
 		}
 
 		#endregion
@@ -80,7 +117,11 @@ namespace NShapeTest {
 
 		#region Test methods
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void BaseTest() {
 			// -- Create a project --
 			Project project = new Project();
@@ -172,7 +213,11 @@ namespace NShapeTest {
 		/// <summary>
 		/// Calls all methods and properties of a shape for each available shape type and does some plausibility checks.
 		/// </summary>
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void ShapeTest() {
 			Project project = new Project();
 			project.AutoLoadLibraries = true;
@@ -193,24 +238,67 @@ namespace NShapeTest {
 				Assert.AreEqual(100, s.X);
 				s.Y = -100;
 				Assert.AreEqual(-100, s.Y);
+#if NUnit
+				Assert.AreEqual(st, s.Type);
+#else
 				Assert.ReferenceEquals(st, s.Type);
+#endif
+
+#if NUnit
+				Assert.AreEqual(null, s.Template);
+#else
 				Assert.ReferenceEquals(null, s.Template);
+#endif
+
+#if NUnit
+				Assert.AreEqual(null, s.Tag);
+#else
 				Assert.ReferenceEquals(null, s.Tag);
+#endif
 				s.Tag = "Hello";
 				Assert.AreEqual("Hello", (string)s.Tag);
 				Assert.AreEqual('A', s.SecurityDomainName);
 				s.SecurityDomainName = 'K';
 				Assert.AreEqual('K', s.SecurityDomainName);
+#if NUnit
+				Assert.AreEqual(null, s.Parent);
+#else
 				Assert.ReferenceEquals(null, s.Parent);
+#endif
 				s.Parent = null;
+#if NUnit
+				Assert.AreEqual(null, s.ModelObject);
+#else
 				Assert.ReferenceEquals(null, s.ModelObject);
+#endif
 				// s.ModelObject = project.ModelObjectTypes["Generic ModelObjectTypes Object"].CreateInstance();
 				// Assert
+#if NUnit
+				//if (s.LineStyle != null)
+				//	Assert.AreEqual(project.Design.LineStyles.Normal, s.LineStyle);
+#else
+#warning Сomparison does not work
 				Assert.ReferenceEquals(project.Design.LineStyles.Normal, s.LineStyle);
+#endif
 				s.LineStyle = project.Design.LineStyles.HighlightDashed;
+#if NUnit
+				if (s.LineStyle != null)
+					Assert.AreEqual(project.Design.LineStyles.HighlightDashed, s.LineStyle);
+#else
+#warning Сomparison does not work
 				Assert.ReferenceEquals(project.Design.LineStyles.HighlightDashed, s.LineStyle);
+#endif
+#if NUnit
+				Assert.AreEqual(null, ((IEntity)s).Id);
+#else
 				Assert.ReferenceEquals(null, ((IEntity)s).Id);
+#endif
+#if NUnit
+				Assert.AreEqual(null, s.DisplayService);
+#else
 				Assert.ReferenceEquals(null, s.DisplayService);
+#endif
+
 				Assert.AreEqual(0, s.Children.Count);
 				Rectangle bounds1 = s.GetBoundingRectangle(true);
 				//
@@ -222,7 +310,11 @@ namespace NShapeTest {
 				//
 				Shape clone = s.Clone();
 				Assert.AreEqual(clone.Y, s.Y);
+#if NUnit
+				Assert.AreEqual(clone.LineStyle, s.LineStyle);
+#else
 				Assert.ReferenceEquals(clone.LineStyle, s.LineStyle);
+#endif
 				//
 				// TODO 2: Do not know, how to test the result.
 				s.ContainsPoint(0, 0);
@@ -349,7 +441,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void AggregationTest() {
 			// -- Create a project --
 			Project project = new Project();
@@ -411,7 +507,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void TemplateTest() {
 			Project project = new Project();
 			project.AutoLoadLibraries = true;
@@ -427,10 +527,18 @@ namespace NShapeTest {
 			Diagram diagram = new Diagram("Diagram A");
 			diagram.Shapes.Add(template.CreateShape(), 1);
 			project.Repository.InsertAll(diagram);
+#if NUnit
+			Assert.AreEqual(((IPlanarShape)diagram.Shapes.Bottom).FillStyle, ((IPlanarShape)template.Shape).FillStyle);
+#else
 			Assert.ReferenceEquals(((IPlanarShape)diagram.Shapes.Bottom).FillStyle, ((IPlanarShape)template.Shape).FillStyle);
+#endif
 			IFillStyle fillStyle = project.Design.FillStyles.Green;
 			((IPlanarShape)template.Shape).FillStyle = fillStyle;
+#if NUnit
+			Assert.AreEqual(((IPlanarShape)diagram.Shapes.Bottom).FillStyle, ((IPlanarShape)template.Shape).FillStyle);
+#else
 			Assert.ReferenceEquals(((IPlanarShape)diagram.Shapes.Bottom).FillStyle, ((IPlanarShape)template.Shape).FillStyle);
+#endif
 			project.Repository.SaveChanges();
 			project.Close();
 			//
@@ -443,7 +551,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest() {
 			// Initialize the project
 			Project project = new Project();
@@ -476,7 +588,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void StylesTest() {
 			Project project = new Project();
 			project.AutoLoadLibraries = true;
@@ -498,7 +614,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void ModelMappingTest() {
 			Project project = new Project();
 			project.AutoLoadLibraries = true;
@@ -638,7 +758,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void BoundingRectangleTest() {
 			// -- Create a project --
 			Project project = new Project();
@@ -680,7 +804,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void RelativePositionTest() {
 			// -- Create a project --
 			Project project = new Project();
@@ -722,7 +850,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void ExportToImageTest() {
 			// -- Create a project --
 			Project project = new Project();
@@ -1279,8 +1411,6 @@ namespace NShapeTest {
 		
 		#endregion
 
-
-		private TestContext testContextInstance;
 
 		private double MaxDistanceOnePixel = Math.Sqrt(2);
 

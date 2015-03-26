@@ -16,14 +16,26 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Dataweb.NShape;
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 namespace NShapeTest {
 
+#if NUnit
+	[TestFixture]
+#else
 	[TestClass]
+#endif
 	public class ExceptionTest {
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void TestExceptionSerialization() {
 			const string errorMessage = "Exception Serialization Test Message";
 			const string innerErrorMessage = "Inner Exception Error Message";

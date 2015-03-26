@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 using Dataweb.NShape.FlowChartShapes;
 using Dataweb.NShape.ElectricalShapes;
 using Dataweb.NShape.GeneralShapes;
@@ -12,10 +16,18 @@ using Dataweb.NShape.SoftwareArchitectureShapes;
 
 namespace NShapeTest {
 
+#if NUnit
+	[TestFixture]
+#else
 	[TestClass]
+#endif
 	public class ShapeClassesTest {
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void ControlPointConstantsTest() {
 			// -- Create a project --
 			Project project = new Project();
@@ -166,8 +178,8 @@ namespace NShapeTest {
 				TestControlPointCapabilities((RectangularLine)shape, pointsFromShape);
 			else if (shape is CircularArc)
 				TestControlPointCapabilities((CircularArc)shape, pointsFromShape);
-			else if (shape is Text)
-				TestControlPointCapabilities((Text)shape, pointsFromShape);
+			else if (shape is Dataweb.NShape.GeneralShapes.Text)
+				TestControlPointCapabilities((Dataweb.NShape.GeneralShapes.Text)shape, pointsFromShape);
 			else if (shape is Label)
 				TestControlPointCapabilities((Label)shape, pointsFromShape);
 			else if (shape is RegularPolygone)
@@ -1370,7 +1382,7 @@ namespace NShapeTest {
 		}
 
 
-		private void TestControlPointCapabilities(Text shape, IEnumerable<ControlPointId> controlPointsFromShape) {
+		private void TestControlPointCapabilities(Dataweb.NShape.GeneralShapes.Text shape, IEnumerable<ControlPointId> controlPointsFromShape) {
 			// Check whether all points have the expected capabilities
 			for (int i = 0; i <= 1; ++i) {
 				// Test with and without AutoSize
@@ -1378,17 +1390,17 @@ namespace NShapeTest {
 
 				foreach (ControlPointId id in controlPointsFromShape) {
 					switch (id) {
-						case Text.ControlPointIds.TopLeftControlPoint:
-						case Text.ControlPointIds.TopCenterControlPoint:
-						case Text.ControlPointIds.TopRightControlPoint:
-						case Text.ControlPointIds.MiddleLeftControlPoint:
-						case Text.ControlPointIds.MiddleRightControlPoint:
-						case Text.ControlPointIds.BottomLeftControlPoint:
-						case Text.ControlPointIds.BottomCenterControlPoint:
-						case Text.ControlPointIds.BottomRightControlPoint:
-							Assert.AreEqual<bool>(shape.HasControlPointCapability(id, ControlPointCapabilities.Resize), shape.AutoSize);
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.TopLeftControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.TopCenterControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.TopRightControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.MiddleLeftControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.MiddleRightControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.BottomLeftControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.BottomCenterControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.BottomRightControlPoint:
+							Assert.AreEqual(shape.HasControlPointCapability(id, ControlPointCapabilities.Resize), shape.AutoSize);
 							break;
-						case Text.ControlPointIds.MiddleCenterControlPoint:
+						case Dataweb.NShape.GeneralShapes.Text.ControlPointIds.MiddleCenterControlPoint:
 						case ControlPointId.Reference:
 							Assert.IsTrue(shape.HasControlPointCapability(id, ControlPointCapabilities.Reference));
 							Assert.IsTrue(shape.HasControlPointCapability(id, ControlPointCapabilities.Rotate));
@@ -1419,7 +1431,7 @@ namespace NShapeTest {
 						case Label.ControlPointIds.BottomLeftControlPoint:
 						case Label.ControlPointIds.BottomCenterControlPoint:
 						case Label.ControlPointIds.BottomRightControlPoint:
-							Assert.AreEqual<bool>(shape.HasControlPointCapability(id, ControlPointCapabilities.Resize), shape.AutoSize);
+							Assert.AreEqual(shape.HasControlPointCapability(id, ControlPointCapabilities.Resize), shape.AutoSize);
 							break;
 						case Label.ControlPointIds.MiddleCenterControlPoint:
 						case ControlPointId.Reference:

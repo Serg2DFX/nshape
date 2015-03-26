@@ -19,12 +19,20 @@ using System.Reflection;
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
 using Dataweb.NShape.Commands;
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 
 namespace NShapeTest {
 
+#if NUnit
+	[TestFixture]
+#else
 	[TestClass]
+#endif
 	public class CommandTest {
 
 		// Commands Tested:
@@ -40,7 +48,11 @@ namespace NShapeTest {
 		//Dataweb.NShape.Commands.DeleteShapeCommand
 		//Dataweb.NShape.Commands.DeleteStyleCommand
 		//Dataweb.NShape.Commands.DeleteTemplateCommand
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_CreateAndDelete() {
 			const string projectName = "Command Test - Create and Delete";
 
@@ -148,7 +160,11 @@ namespace NShapeTest {
 		//Dataweb.NShape.Commands.RotateShapesCommand
 		//Dataweb.NShape.Commands.SetCaptionTextCommand
 		//Dataweb.NShape.Commands.LiftShapeCommand
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_ShapeMovement() {
 			const string projectName = "Command Test - Shape Movement";
 
@@ -249,7 +265,11 @@ namespace NShapeTest {
 		// Commands tested:
 		//Dataweb.NShape.Commands.CopyTemplateFromTemplateCommand
 		//Dataweb.NShape.Commands.ExchangeTemplateShapeCommand
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_Templates() {
 			string projectName = "Command Test - Templates";
 			Project project = CreateProject(projectName, true);
@@ -296,7 +316,11 @@ namespace NShapeTest {
 		//Dataweb.NShape.Commands.GroupShapesCommand
 		//Dataweb.NShape.Commands.UngroupShapesCommand
 		//Dataweb.NShape.Commands.SplitCompositeShapeCommand
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_AggregatedShapes() {
 			const string projectName = "Command Test - Aggregated Shapes";
 			Project project = CreateProject(projectName, true);
@@ -365,7 +389,11 @@ namespace NShapeTest {
 		//Dataweb.NShape.Commands.MoveGluePointCommand
 		//Dataweb.NShape.Commands.RemoveConnectionPointCommand
 		//Dataweb.NShape.Commands.RemoveVertexCommand		
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_ControlPoints() {
 			string projectName = "Command Test - Control Points";
 			Project project = CreateProject(projectName, true);
@@ -451,16 +479,16 @@ namespace NShapeTest {
 			ExecTest(project, new MoveControlPointCommand((Shape)line, ControlPointId.FirstVertex, dx, dy, ResizeModifiers.None),
 				() => { 
 					CheckControlPointCommandResult(line, newPositions, 0, ControlPointCapabilities.Glue); 
-					Assert.AreEqual<int>(ControlPointId.None, line.IsConnected(ControlPointId.Any, targetA.shape)); 
+					Assert.AreEqual(ControlPointId.None, (int)line.IsConnected(ControlPointId.Any, targetA.shape)); 
 				}, () => { 
 					CheckControlPointCommandResult(line, currPositions, 0, ControlPointCapabilities.Glue); 
-					Assert.AreEqual<int>(ControlPointId.None, line.IsConnected(ControlPointId.Any, targetA.shape)); 
+					Assert.AreEqual(ControlPointId.None, (int)line.IsConnected(ControlPointId.Any, targetA.shape)); 
 				});
 
 			//Dataweb.NShape.Commands.ConnectCommand
 			ExecTest(project, new ConnectCommand(line, ControlPointId.FirstVertex, targetA.shape, targetA.pointId),
 				() => Assert.AreEqual(targetA.pointId, line.IsConnected(ControlPointId.FirstVertex, targetA.shape)),
-				() => Assert.AreEqual<int>(ControlPointId.None, line.IsConnected(ControlPointId.FirstVertex, targetA.shape)));
+				() => Assert.AreEqual(ControlPointId.None, (int)line.IsConnected(ControlPointId.FirstVertex, targetA.shape)));
 			
 			//Dataweb.NShape.Commands.MoveGluePointCommand
 			currPositions = GetPointPositions((Shape)line, ControlPointCapabilities.Glue);
@@ -484,7 +512,7 @@ namespace NShapeTest {
 
 			//Dataweb.NShape.Commands.DisconnectCommand
 			ExecTest(project, new DisconnectCommand(line, ControlPointId.FirstVertex),
-				() => Assert.AreEqual<int>(ControlPointId.None, line.IsConnected(ControlPointId.FirstVertex, targetB.shape)),
+				() => Assert.AreEqual(ControlPointId.None, (int)line.IsConnected(ControlPointId.FirstVertex, targetB.shape)),
 				() => Assert.AreEqual(targetB.pointId, line.IsConnected(ControlPointId.FirstVertex, targetB.shape)));
 
 			//Dataweb.NShape.Commands.RemoveConnectionPointCommand
@@ -526,7 +554,11 @@ namespace NShapeTest {
 		//Dataweb.NShape.Commands.EditLayerCommand
 		//Dataweb.NShape.Commands.RemoveLayerCommand
 		//Dataweb.NShape.Commands.RemoveShapesFromLayersCommand
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_Layers() {
 			string projectName = "Command Test - Layers";
 			Project project = CreateProject(projectName, true);
@@ -629,7 +661,11 @@ namespace NShapeTest {
 		//Dataweb.NShape.Commands.ModelObjectPropertySetCommand
 		//Dataweb.NShape.Commands.ShapePropertySetCommand
 		//Dataweb.NShape.Commands.StylePropertySetCommand
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CommandTest_PropertyController() {
 			string projectName = "Command Test - PropertyController Commands";
 			Project project = CreateProject(projectName, true);

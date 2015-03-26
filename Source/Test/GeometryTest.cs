@@ -13,15 +13,27 @@
 ******************************************************************************/
 
 using Dataweb.NShape.Advanced;
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 
 namespace NShapeTest {
 
+#if NUnit
+	[TestFixture]
+#else
 	[TestClass]
+#endif
 	public class GeometryTests {
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CalcDroppedPerpendicularFootTest() {
 			int fX, fY;
 			//
@@ -39,7 +51,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CalcNormalVectorOfLineTest() {
 			int pX, pY;
 			//
@@ -57,7 +73,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void DistancePointLineTest() {
 			float d;
 
@@ -75,7 +95,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void CalcNearestPointOfLineSegmentTest() {
 			int x, y;
 			//

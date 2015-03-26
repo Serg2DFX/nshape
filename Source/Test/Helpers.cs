@@ -16,7 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
@@ -332,20 +337,24 @@ namespace NShapeTest {
 	{
 		public static void SaveBeginTimer(this TestContext context, string timerName)
 		{
+#if !NUnit
 			try
 			{
 				context.BeginTimer(timerName);
 			}
 			catch (NotSupportedException) { }
+#endif
 		}
 
 		public static void SaveEndTimer(this TestContext context, string timerName)
 		{
+#if !NUnit
 			try
 			{
 				context.EndTimer(timerName);
 			}
 			catch (NotSupportedException) { }
+#endif
 		}
 	}
 

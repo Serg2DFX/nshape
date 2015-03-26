@@ -20,7 +20,11 @@ using System.IO;
 using System.Linq;
 using Dataweb.NShape;
 using Dataweb.NShape.Advanced;
+#if NUnit
+using NUnit.Framework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 
 namespace NShapeTest {
@@ -28,14 +32,19 @@ namespace NShapeTest {
 	/// <summary>
 	/// Summary description for UnitTest
 	/// </summary>
+#if NUnit
+	[TestFixture]
+#else
 	[TestClass]
+#endif
 	public class RepositoryTest {
 
 		public RepositoryTest() {
 			// TODO: Add constructor logic here
 		}
 
-
+#if !NUnit
+		private TestContext testContextInstance;
 		/// <summary>
 		///Gets or sets the test context which provides
 		///information about and functionality for the current test run.
@@ -44,7 +53,13 @@ namespace NShapeTest {
 			get { return testContextInstance; }
 			set { testContextInstance = value; }
 		}
+#else
+		public TestContext TestContext
+		{
+			get { return TestContext.CurrentContext; }
+		}
 
+#endif
 
 		#region Additional test attributes
 
@@ -60,15 +75,36 @@ namespace NShapeTest {
 		//public static void MyClassCleanup() { }
 
 		// Use TestInitialize to run code before running each test 
-		[TestInitialize()]
+#if NUnit
+		[SetUp]
+#else
+		[TestInitialize]
+#endif
 		public void MyTestInitialize() {
-			TestContext.SaveBeginTimer(TestContext.TestName + " Timer");
+			TestContext.SaveBeginTimer(
+#if NUnit
+				TestContext.Test.Name
+#else
+				TestContext.TestName
+#endif
+				+ " Timer");
 		}
 
 		// Use TestCleanup to run code after each test has run
-		[TestCleanup()]
-		public void MyTestCleanup() {
-			TestContext.SaveEndTimer(TestContext.TestName + " Timer");
+#if NUnit
+		[TearDown]
+#else
+		[TestCleanup]
+#endif
+		public void MyTestCleanup()
+		{
+			TestContext.SaveEndTimer(
+#if NUnit
+				TestContext.Test.Name
+#else
+				TestContext.TestName
+#endif
+				+ " Timer");
 		}
 
 		#endregion
@@ -76,7 +112,11 @@ namespace NShapeTest {
 
 		#region Test methods
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void XmlRepository_VersionCompatibility_Extended_Test() {
 			string repositoriesDir = GetTestRepositoriesDirectory();
 			string libDir = Path.GetDirectoryName(typeof(Shape).Assembly.Location);
@@ -169,7 +209,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void XmlRepository_VersionCompatibility_Test() {
 			for (int version = Project.FirstSupportedSaveVersion; version <= Project.LastSupportedSaveVersion; ++version) {
 				// Test inserting, modifying and deleting objects from repository
@@ -181,7 +225,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void SQLRepository_VersionCompatibility_Test() {
 			// Create empty databases for all repository save versions
 			RepositoryCompatibilityTest_CleanupDatabases();
@@ -202,7 +250,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void XMLRepository_EditWithContents_Test() {
 			// Test inserting, modifying and deleting objects from repository
 			string timerName = "RepositoryTest XMLStore Timer (edit with contents)";
@@ -212,7 +264,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void XMLRepository_EditWithoutContents_Test() {
 			// Test inserting, modifying and deleting objects from repository
 			string timerName = "RepositoryTest XMLStore Timer (edit without contents)";
@@ -222,7 +278,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void XMLRepository_FunctionSetComparison_Test() {
 			// Test inserting, modifying and deleting objects from repository
 			string timerName = "RepositoryTest XMLStore Timer (Function set comparison test)";
@@ -232,7 +292,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void XMLRepository_LargeDiagram_Test() {
 			// Test inserting large diagrams
 			string timerName = "LargeDiagramTest XMLStore Timer";
@@ -242,7 +306,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void SQLRepository_EditWithContents_Test() {
 			try {
 				RepositoryHelper.SQLCreateDatabase();
@@ -256,8 +324,12 @@ namespace NShapeTest {
 			}
 		}
 
-		
+
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void SQLRepository_EditWithoutContents_Test() {
 			try {
 				RepositoryHelper.SQLCreateDatabase();
@@ -272,7 +344,11 @@ namespace NShapeTest {
 		}
 
 
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void SQLRepository_FunctionSetComparison_Test() {
 			try {
 				RepositoryHelper.SQLCreateDatabase();
@@ -286,8 +362,12 @@ namespace NShapeTest {
 			}
 		}
 
-		
+
+#if NUnit
+		[Test]
+#else
 		[TestMethod]
+#endif
 		public void SQLRepository_LargeDiagram_Test() {
 			try {
 				RepositoryHelper.SQLCreateDatabase();
@@ -653,11 +733,21 @@ namespace NShapeTest {
 
 
 		private string GetSourceDirectory() {
-			var path = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDir));
+			var path = Path.GetDirectoryName(Path.GetDirectoryName(
+#if NUnit
+				TestContext.CurrentContext.TestDirectory
+#else
+				TestContext.TestDir
+#endif
+				));
+#if !NUnit
 			if (SqlStore.IsAppVeyor())
 			{
-				path = Path.Combine(path, "source");
-			}
+#endif
+				path = Path.Combine(path, "Source");
+#if !NUnit
+		}
+#endif
 			return path;
 		}
 
@@ -670,7 +760,13 @@ namespace NShapeTest {
 		private string GetCommonTempDir() {
 			if (SqlStore.IsAppVeyor())
 			{
-				return Path.Combine(TestContext.TestDir, "NShapeTemp");
+				return Path.Combine(
+#if NUnit
+				TestContext.CurrentContext.TestDirectory
+#else
+				TestContext.TestDir
+#endif
+				, "NShapeTemp");
 			}
 			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "NShapeTemp");
 		}
@@ -1648,8 +1744,6 @@ namespace NShapeTest {
 
 		#endregion
 
-
-		private TestContext testContextInstance;
 
 		private enum EditContentMode { Insert, Modify };
 
