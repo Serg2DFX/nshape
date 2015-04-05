@@ -264,9 +264,6 @@
     <EmbeddedResource Include="Resources\ActionDeniedCursor.cur" />
     <EmbeddedResource Include="Resources\AddToLayer.bmp" />
     <EmbeddedResource Include="Resources\AggregateShapeBtn.bmp" />
-    <None Include="..\Dataweb.NShape.snk">
-      <Link>Dataweb.NShape.snk</Link>
-    </None>
     <EmbeddedResource Include="Resources\FreehandIconLarge.bmp" />
     <EmbeddedResource Include="Resources\FreehandIconSmall.bmp" />
     <EmbeddedResource Include="Resources\CopyBtn.bmp" />
@@ -296,7 +293,6 @@
     <EmbeddedResource Include="Controllers.ToolSetController.bmp" />
     <EmbeddedResource Include="SqlStore.bmp" />
     <EmbeddedResource Include="XmlStore.bmp" />
-    <None Include="nShape.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
